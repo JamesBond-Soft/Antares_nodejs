@@ -1,0 +1,226 @@
+
+<% include buyers-header %>
+
+<section class="container">
+
+<div class="row">
+        <% include buyers-aside %>
+
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+     <div class="container-filters-buyers ">
+      <div class="row">
+              <div id="filter-head-down" class="col-xs-12 text-center filter-head ">Mis notificaciones </div>
+      </div>
+
+     </div>
+
+
+<!-- list and pagination arts -->
+
+
+                <!-- Template normal notification list -->
+          
+                <div id="container-arts" class="container p-0 ">
+                      
+                                                                                                                        
+                              
+                </div>
+                    <!-- End normal Template notification list -->
+
+<!-- end list and pagination arts -->
+
+<div class=" row mt-5 ">
+                <div class="col-sm-12 d-flex justify-content-center">
+            
+                        <nav class="nav-pagination">
+                                <ul class="pagination" id="container-pag">
+                                  
+                                </ul>
+                        </nav>
+                </div>
+  </div> 
+
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+<script>
+
+                var limitInit=1;//important 1
+                var containerArts=$("#container-arts");
+                var containerPagination=$("#container-pag");
+                var cantToShow=30;
+                
+                var startLink=1;
+                var cantToShowLink=5;
+                artistArtsShipping(limitInit);
+                
+                 function artistArtsShipping(limit){
+                        
+                 $.ajax({
+                    url: "getBuyerNotificationList",
+                    method: 'POST',
+                    dataType:'JSON',
+                    data:{limit:limit,cantToShow:cantToShow},
+                    beforeSend: function(){
+                 
+                    },
+                   success: function(response){         
+                var htmlArts='';
+                    for(var i=0; i<response.data.length; i++){
+                          
+                        let item = response.data[i];
+
+  var imageNotifi=``;
+    var classNotifi=``;
+     if(item.img_notification == 'media/img/avatar-default.png'){ 
+        imageNotifi= `<img class="avatar-likes" src="/media/img/avatar-default.png"  />`;                        
+    }else if(item.img_notification.indexOf("http")!=-1){ 
+        imageNotifi= `<img class="avatar-likes" src="`+item.img_notification+`"  />`; 
+    }else{ 
+        imageNotifi= `<img class="avatar-likes" src="/imagesUsers/`+item.img_notification+`"  />`; 
+    } 
+
+    if(item.read=="false"){
+        var classNotifi=`notifi-unread`;
+    }else{
+        var classNotifi=`notifi-read`;
+    }
+
+                htmlArts+= `<a class="container-notify-listv2 mt-1  `+classNotifi+`"  >
+                            <div class="row" id="notify_`+item.cod_no+`">
+                                                                                                          
+                            <div  class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
+                                        `+imageNotifi+`
+                                                                                                          </div>
+                                                                                                          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-7 ">
+                                                                                                              <div class="row">
+                                                                                                                  <div class="col text-left pl-2 list-title">  <strong> `+item.title_no+`</strong></div>
+                                                                                                                    
+                                                                                                              </div>
+                                                                                               
+                                                                                                              <div class="row ">
+                                                                                                                   <div class="col text-left pl-2 list-subtitle-list">`+item.description_no+` </div>
+                                                                                                    
+                                                                                                              </div>
+                                                                                                         
+                                                                                                           </div>
+                                                                                                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 ">
+                                                                                                                         <strong class="time-notify">`+item.date_formated+`</strong>
+                                                                                                             </div>
+                         </div>
+                                                                  
+                                                                                          </a>
+<script>
+    $("#notify_`+item.cod_no+`").click(function(){
+        setReadNotificationBuyer(`+item.cod_no+`,"`+item.read+`","`+item.url_no+`","`+item.description_no+`");
+    });
+</`+`script>`;
+        
+                
+                    }
+                
+                containerArts.html(htmlArts);
+                
+                pagesHtml="";
+                
+                var numberLinks= Math.ceil((parseInt(response.count)/cantToShow));
+                
+                if(limit>1){
+                        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+1+`)">&laquo;</a></li>`;
+                        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit-1)+`)">&lsaquo;</a></li>`;
+                }else{
+                        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&laquo;</a></li>`;
+                        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&lsaquo;</a></li>`;
+                }
+                
+                
+                for(var i=1; i<=numberLinks; i++){
+                if(i>=(startLink-1) && i<=(startLink+(cantToShowLink-1)) ){
+                        if(i==limit){
+                         
+                                pagesHtml+= `<li class="page-item "  ><a class="page-link active-antares-link" href="javascript:void(0)" >`+i+`</a></li>`;
+                        }else{
+                                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)" onclick="changeLinkStart(`+i+`)">`+i+`</a></li>`;
+                            
+                        }
+                }
+                
+                }
+                
+                if(limit<numberLinks){
+                        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit+1)+`)">&rsaquo;</a></li>`;
+                        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+(numberLinks)+`)">&raquo;</a></li>`;
+                }else{
+                        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&rsaquo;</a></li>`;
+                        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&raquo;</a></li>`;
+                }
+                containerPagination.html(pagesHtml);
+                
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                });
+                var lightbox = new Lightbox();
+                lightbox.load();
+                
+                },
+                error: function(err) {
+                console.log(JSON.stringify(err));
+                 }
+                });
+                
+                }
+                
+                function changeLinkStart(page){
+                
+                    if(page==startLink+(cantToShowLink-1)){
+                      startLink=startLink+(cantToShowLink);
+                    }else if(page==startLink-1){
+                        startLink=startLink-(cantToShowLink);
+                    }
+                    artistArtsShipping(page);
+                }
+                
+                function changeLinkStartRestar(page){
+                startLink=page;
+                artistArtsShipping(page);
+                }
+                
+ </script>
+
+ <script>
+function setReadNotificationBuyer(notifiId,readORNot,link,description){
+    $.ajax({
+    url: "/setReadNotificationBuyer",
+    method: 'POST',
+    data:{
+        notifiId:notifiId,
+        readORNot:readORNot,
+        link:link,
+        description:description
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+     window.location.href = "/"+link;
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+ </script>
+<% include buyers-footer-normal %>

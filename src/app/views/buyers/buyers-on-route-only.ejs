@@ -1,0 +1,242 @@
+<% include buyers-header %>
+
+<section class="container">
+
+<div class="row">
+
+        <% include buyers-aside %>
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+     <div class="container-filters-buyers ">
+      <div class="row">
+              <div id="filter-head-down" class="col-xs-12 text-center filter-head ">En ruta </div>
+      </div>
+
+     </div>
+
+
+<!-- list and pagination arts -->
+
+<% if(data.type_sale_art=='auction'){ %>
+<%  if(data.type_art=='image'){ %>
+<div class="container-art mt-4">
+                                          <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                                     
+                                                 
+                                          <div class="container-fix-art"> 
+                                          <img src="imagesArs/<%= data.url_art %>" class="img-art" data-jslghtbx>
+                                         </div>
+                                          
+                                         <div class="container-info-arts container-fluid">
+                                                        <div class="row mt-1">
+                                                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                          
+                                                                </div>
+                                                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                          <span><%= data.title_art %> - <%= data.measurements %> </span>
+                                                                      </div>
+                                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                    <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= data.number_likes %> <i class="fas fa-heart"></i></label> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="row ">
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                      <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ <%= data.minimum_bid_art %></strong> </label> 
+                            
+                              </div>
+                              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                              <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong> $ <%= data.offer_winner %></strong> </label>   
+                              </div>
+                              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                          <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Clic par abrir url de seguimiento"><i class="fas fa-shipping-fast"></i>  Url de seguimiento:  <strong> <a class="" target="_blank" href="<%= data.auction_url_parcel %>"><%= data.auction_url_parcel %></a> </strong> </label> 
+                                
+                                  </div>
+                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                  <label class=" text-center" > Código de seguimiento: <br> <strong> <%= data.auction_rast_parcel %></strong> </label>   
+                                  </div>
+                                <div class="col-12 p-0">
+                                          <a href="/setStatusReceived/<%= data.cod_art %>/<%= data.id_auction %>/<%= data.type_sale_art %>/<%= data.cod_ar2 %>" class="btn btn-offert" data-toggle="tooltip" data-placement="bottom" title="Es muy importante marcar como recibido cuando llege el paquete"> <i class="fas fa-flag"></i> Marcar como recibido</a>
+                                  </div>
+                              
+                               </div>
+                            
+                                            
+                                                    </div>
+</div>
+
+<%   }else if(data.type_art=='video'){   %>
+        <div class="container-art mt-4">
+                                          <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                                     
+                                                 
+                                        <div class="container-fix-art"> 
+                                         
+                                  <video class="video-art" width="100%" height="340" controls>
+                                                  <source src="videosArs/<%= data.url_art %>" type="video/mp4" />
+                                                    
+                                              </video>
+                                          </div>
+                                          
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                        
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span><%= data.title_art %> - <%= data.measurements %> </span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= data.number_likes %> <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ <%= data.minimum_bid_art %></strong> </label> 
+                          
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong> $ <%= data.offer_winner %></strong> </label>   
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Clic par abrir url de seguimiento"><i class="fas fa-shipping-fast"></i>  Url de seguimiento:  <strong> <a class="" target="_blank" href="<%= data.auction_url_parcel %>"><%= data.auction_url_parcel %></a> </strong> </label> 
+                              
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <label class=" text-center" > Código de seguimiento: <br> <strong> <%= data.auction_rast_parcel %></strong> </label>   
+                                </div>
+                              <div class="col-12 p-0">
+                                        <a href="/setStatusReceived/<%= data.cod_art %>/<%= data.id_auction %>/<%= data.type_sale_art %>/<%= data.cod_ar2 %>" class="btn btn-offert" data-toggle="tooltip" data-placement="bottom" title="Es muy importante marcar como recibido cuando llege el paquete"> <i class="fas fa-flag"></i> Marcar como recibido</a>
+                                </div>
+                            
+                             </div>
+                          
+                                          
+                                                  </div>
+
+                                              
+</div>
+<%    }  %>
+<%   }else if(data.type_sale_art=='direct'){   %>
+ <%      if(data.type_art=='image'){ %>
+<div class="container-art mt-4">
+                                          <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                                       
+                                                 
+                                          <div class="container-fix-art"> 
+                                         
+                                        <img src="imagesArs/<%= data.url_art %>" class="img-art" data-jslghtbx>
+                                  </div>
+                                  <div class="container-info-arts container-fluid">
+                                        <div class="row mt-1">
+                                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                     
+                                                </div>
+                                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                          <span><%= data.title_art %>  - <%= data.measurements %></span>
+                                                      </div>
+                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                    <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= data.number_likes %> <i class="fas fa-heart"></i></label> 
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                      <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ <%= data.sale_price_art %></strong> </label> 
+            
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                     
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                          <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Clic par abrir url de seguimiento"><i class="fas fa-shipping-fast"></i>  Url de seguimiento:  <strong> <a class="" target="_blank" href="<%= data.sale_url_parcel %>"><%= data.sale_url_parcel %></a> </strong> </label> 
+                
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                  <label class=" text-center" > Código de seguimiento: <br> <strong> <%= data.sale_rast_parcel %></strong> </label>   
+                  </div>
+          <div class="col-12 p-0">
+                          <a href="/setStatusReceived/<%= data.cod_art %>/<%= data.id_sale %>/<%= data.type_sale_art %>/<%= data.cod_ar2 %>" class="btn btn-offert" data-toggle="tooltip" data-placement="bottom" title="Es muy importante marcar como recibido cuando llege el paquete"> <i class="fas fa-flag"></i> Marcar como recibido</a>
+           </div>
+           </div>
+            
+                
+                            
+                                    </div>
+
+                                          </div>
+                                <%   }else if(data.type_art=='video'){ %>
+           
+<div class="container-art mt-4">
+                                          <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                                       
+                                                 
+                                                  
+                                          <div class="container-fix-art"> 
+                                         
+                                         <video class="video-art" width="100%" height="340" controls>
+                                                         <source src="videosArs/<%= data.url_art %>" type="video/mp4" />
+                                                           
+                                                     </video>
+                                                 </div>
+
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                   
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span><%= data.title_art %>  - <%= data.measurements %></span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= data.number_likes %> <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                                    <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ <%= data.sale_price_art %></strong> </label> 
+                          
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                                   
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Clic par abrir url de seguimiento"><i class="fas fa-shipping-fast"></i>  Url de seguimiento:  <strong> <a class="" target="_blank" href="<%= data.sale_url_parcel %>"><%= data.sale_url_parcel %></a> </strong> </label> 
+                              
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <label class=" text-center" > Código de seguimiento: <br> <strong> <%= data.sale_rast_parcel %></strong> </label>   
+                                </div>
+                        <div class="col-12 p-0">
+                                        <a href="/setStatusReceived/<%= data.cod_art %>/<%= data.id_sale %>/<%= data.type_sale_art %>/<%= data.cod_ar2 %>" class="btn btn-offert" data-toggle="tooltip" data-placement="bottom" title="Es muy importante marcar como recibido cuando llege el paquete"> <i class="fas fa-flag"></i> Marcar como recibido</a>
+                      </div>
+                           
+                </div>
+                          
+                              
+                                          
+                                                  </div>
+
+                                        
+                                          </div>
+                                          <%   } %>
+                                          <% } %>
+
+
+
+
+<!-- end list and pagination arts -->
+
+
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+
+<% include buyers-footer-normal %>

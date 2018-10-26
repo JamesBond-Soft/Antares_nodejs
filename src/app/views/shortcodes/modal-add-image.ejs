@@ -1,0 +1,178 @@
+<!-- moadal add photo -->
+<form action="setArtPicture" method="post"  enctype="multipart/form-data" id="form-add-art-photo">
+    <div class="modal fade add-photo-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        
+                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agregar foto</h5>
+                             
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+    
+    
+    
+                                  </div>
+                                  <div class="modal-body">
+                                
+                                     
+    
+                                  <div class="row">
+                                  
+                                      <div class=" w-100 ml-2 mr-2" id="alert-container-modals">
+    
+                                        </div>
+    
+                                            <div class="col-xs-12 text-center filter-head mt-3 mb-2">Foto de la obra</div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                                            <label for="imgInp">
+                                                            <img id="blah" class="picture-art-upload" src="media/img/Empty_image_icon.png" />
+                                                              </label>
+                                                          
+                                            <input type='file' id="imgInp" name="artImg" style="display:none" accept=".png,.jpg,.jpeg"/>
+                                            <br>
+                                            <small>Clic sobre la imagen para cargar foto de la obra </small>
+                                          
+    
+                                            </div>
+    
+                                            <div class="col-xs-12 text-center filter-head mt-3">Información basica</div>
+    
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                          
+                                                            <label for="exampleInputEmail1"><strong>Titulo de la obra</strong> </label>
+                                                            <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese el titulo de la obra(publico)" name="titleArt" >
+                                                
+                                    </div>
+    
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                   
+                                                                    <label for="exampleInputEmail1"><strong>Autor</strong> </label>
+                                                                    <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese el autor" value="<%= user.name_ar %>" name="autor">
+                                                  
+                                            </div>
+                                      
+                                            <div class="col-xs-12 text-center filter-head mt-3">Modo de venta</div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                   
+                                                            <label for="exampleInputEmail1"><strong>Venta directa (mxn)</strong> </label>
+    
+                                                            <div class="input-group">
+                                                              <div class="input-group-addon"><strong>$ (MXN)</strong> </div>
+    
+                                                            <input   id="ventaInput" type="number" class="form-control text-center  input-antares2 "  placeholder="Ingrese el precio de obra" name="saleDirectMoney" >
+                                                       
+                                                          </div>
+                                                          
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                   
+                                                    <label for="exampleInputEmail1"><strong>Subastar obra (periodo 3 dias) (mxn)</strong> </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><strong>$ (MXN)</strong> </div>
+                                                    <input  pattern="[0-9]+([\.,][0-9]+)?"  id="subastaInput" type="number" class="form-control text-center  input-antares2 "   placeholder="Ingrese la oferta mínima para iniciar" name="auctionMoney" >
+                                                  </div>
+                                     </div>
+    
+    
+                                           <div  class="col-xs-12 text-center filter-head mt-3">Medidas de la obra (sólo si aplican)</div>
+    
+                                           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                          
+                                                    <label for="exampleInputEmail1"><strong>Altura cm</strong> </label>
+                                                    <input  type="number" class="form-control text-center  input-antares2 "   placeholder="Ingrese la altura en cm" name="height_art" >
+                                        
+                                            </div>
+                                            
+                                           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                          
+                                                    <label for="exampleInputEmail1"><strong>Ancho cm</strong> </label>
+                                                    <input  type="number" class="form-control text-center  input-antares2 "   placeholder="Ingrese el ancho en cm" name="width_art" >
+                                        
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                          
+                                                            <label for="exampleInputEmail1"><strong>Profundidad cm</strong> </label>
+                                                            <input  type="number" class="form-control text-center  input-antares2 "   placeholder="Ingrese la profundidad en cm" name="depth_art" >
+                                                
+                                                    </div>
+                                                 
+    
+                                  </div>
+    
+                     
+                                  <div class="container-filters-buyers mt-4 ">
+                                            <div class="row">
+                                                    <div id="filter-head-down" class="col-xs-12 text-center filter-head ">Etiqueta tu obra utilizando los filtros de abajo  <i class="fas fa-sort-down d-lg-none pr-2"></i></div>
+                                            </div>
+                                            <div id="row-filters" class="row row-filters pb-2">
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                      
+                                                      <div class="multiselect">
+                                                                      <div class="selectBox" onclick="showCheckboxes()">
+                                                                        <div class="selection">
+                                                                         Categoría <i class="fas fa-sort-down"></i>
+                                                                        </div>
+                                                                        <div class="overSelect"></div>
+                                                                      </div>
+                                                                      <div id="checkboxesb">
+                                                                       
+                                                                      </div>
+                                                     </div>
+                                      
+                                      
+                                      
+                                      </div>
+                                                            
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                                      <div class="multiselect">
+                                                                      <div class="selectBox" onclick="showCheckboxes2()">
+                                                                                      <div class="selection">
+                                                                                                      técnica <i class="fas fa-sort-down"></i>
+                                                                                                     </div>
+                                                                                                     <div class="overSelect"></div>
+                                                                      </div>
+                                                                      <div id="checkboxesb2">
+                                                               
+                                                                          <div class="subtheme" id="comodin-subcategory">Selecccione una categoria para ver las técnicas</div>  
+    
+                                                                                      
+                                                                      </div>
+                                      
+                                                     </div>
+                                      </div>
+                                                              
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                                      <div class="multiselect">
+                                                                      <div class="selectBox" onclick="showCheckboxes3()">
+                                                                                      <div class="selection">
+                                                                                                      tematica <i class="fas fa-sort-down"></i>
+                                                                                                     </div>
+                                                                                                     <div class="overSelect"></div>
+                                                                      </div>
+                                                                      <div id="checkboxesb3">
+                                                                   
+    
+                                                                      </div>
+                                                     </div>
+                                      </div>
+                                      <input type="hidden" id="tagsThematicPhoto" name="tagsThematic">
+                                      <input type="hidden" id="tagsCategoryPhoto" name="tagsCategory">
+                                      <input type="hidden" id="tagsTechniquePhoto" name="tagsTechnique">
+                                      
+                                            </div>
+                                           </div>
+                                              
+    
+    
+                               
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" id="btn-send-add-art-photo" class="btn btn-antares">Agregar arte</button>
+                                  </div>
+        </div>
+      </div>
+    </div>
+    </form>

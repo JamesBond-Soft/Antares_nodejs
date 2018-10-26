@@ -1,0 +1,203 @@
+<script>
+
+$( document ).ready(function() {
+  var containerNotificationsBuyer=$("#container-notifi-buyer");
+  var numberNotificationsBuyer= $("#number-notifications-buyer");
+
+
+
+   var numberNotificationsBuyerMobile= $("#number-notifi-mobile");
+  
+    showNotifiTop();
+    showCountNotifiTop();
+        
+    setInterval(showNotifiTop, 4000);
+   setInterval(showCountNotifiTop, 4000);
+
+var countNotificationsTmp=0;
+var flagPush=false;
+        
+function showNotifiTop(){
+    $.ajax({
+    url: "/getNotificationsBuyer",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+//onsole.log("este es el taµano de data: "+data.length);
+if(data.length > 0){
+    console.log("este es el cod njeuvo: antes de verificar: "+data[0].cod_no);
+    console.log("este es el cod temproal: antes de verificar: "+countNotificationsTmp);
+if(data[0].cod_no>countNotificationsTmp && flagPush ){
+    countNotificationsTmp=data[0].cod_no;
+    showPushNotification(data[0]);
+}
+
+    countNotificationsTmp=data[0].cod_no;
+    flagPush=true;
+
+
+}
+
+//alert(JSON.stringify(data));
+
+notificationsHtml=``;
+      for(var a in data) {
+
+    var  item=data[a];
+
+  
+
+    var imageNotifi=``;
+    var classNotifi=``;
+     if(item.img_notification == 'media/img/avatar-default.png'){ 
+        imageNotifi= `<img class="avatar-likes" src="/media/img/avatar-default.png"  />`;                        
+    }else if(item.img_notification.indexOf("http")!=-1){ 
+        imageNotifi= `<img class="avatar-likes" src="`+item.img_notification+`"  />`; 
+    }else{ 
+        imageNotifi= `<img class="avatar-likes" src="/imagesUsers/`+item.img_notification+`"  />`; 
+    } 
+
+    if(item.read=="false"){
+        var classNotifi=`notifi-unread`;
+    }else{
+        var classNotifi=`notifi-read`;
+    }
+    
+    notificationsHtml+=`
+<a  class="btn `+classNotifi+`"  data-toggle="tooltip" data-placement="bottom" title="Clic para más detalles">
+<div id="notify_`+item.cod_no+`" class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2  ">
+                `+imageNotifi+`
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10  ">
+               <div class="row">
+                   <div class="col text-left pl-2 list-title">  <strong>  `+item.title_no+`</strong></div>
+               </div>
+               <div class="row ">
+                    <div class="col text-left pl-2 list-subtitle"> `+item.description_no+`</div>
+               </div>
+         </div>
+</div>
+</a>
+<script>
+    $("#notify_`+item.cod_no+`").click(function(){
+        setReadNotificationBuyer(`+item.cod_no+`,"`+item.read+`","`+item.url_no+`","`+item.description_no+`");
+    });
+</`+`script>`;
+      }
+
+containerNotificationsBuyer.html(notificationsHtml);
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+
+function showCountNotifiTop(){
+    $.ajax({
+    url: "/getNotificationsBuyerCount",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+
+
+
+if(data[0].number_notifi<=0){
+    numberNotificationsBuyer.hide();
+    numberNotificationsBuyerMobile.hide();
+
+}else{
+    numberNotificationsBuyer.show();
+    numberNotificationsBuyerMobile.show();
+    numberNotificationsBuyer.text(data[0].number_notifi);
+    numberNotificationsBuyerMobile.text(data[0].number_notifi);
+}
+
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+
+
+});
+
+function setReadNotificationBuyer(notifiId,readORNot,link,description){
+    $.ajax({
+    url: "/setReadNotificationBuyer",
+    method: 'POST',
+    data:{
+        notifiId:notifiId,
+        readORNot:readORNot,
+        link:link,
+        description:description
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+     window.location.href = "/"+link;
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+$( document ).ready(function() {
+//showPushNotification();
+});
+function showPushNotification(item){
+    var a = new Audio('/media/audio/short-notice.mp3');
+      a.loop = false;
+    a.play();
+    
+  var imageNotifi2=``;
+  
+     if(item.img_notification == 'media/img/avatar-default.png'){ 
+        imageNotifi2= `/media/img/avatar-default.png`;                        
+    }else if(item.img_notification.indexOf("http")!=-1){ 
+        imageNotifi2=item.img_notification; 
+    }else{ 
+        imageNotifi2= `/imagesUsers/`+item.img_notification; 
+    } 
+
+    Push.create(
+        item.title_no, {
+    body: item.description_no,
+    icon: imageNotifi2,
+    timeout: 20000,
+    onClick: function () {
+        window.focus();
+        this.close();
+   
+        setReadNotificationBuyer(item.cod_no,item.read,item.url_no,item.description_no);
+    }
+});
+}
+</script>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+   <!-- caceh -->
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Last-Modified" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+<meta http-equiv="Pragma" content="no-cache">
+
+<!-- cache -->
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+      <link rel="stylesheet" href="/css/bootstrap/bootstrap-social.css">
+      <!-- Font Awesome CSS-->
+      <link rel="stylesheet" href="/css/font-awesome/css/fontawesome-all.min.css">
+
+      <!-- Antares CSS -->
+      <link rel="stylesheet" href="/css/antares.css">
+      <!-- Peace resources -->
+      <script src="/js/pace.js"></script>
+      <link rel="stylesheet" href="/css/pace-theme-minimal.css"/>
+      <!-- lightbox -->
+     
+
+      <link rel="stylesheet" href="/css/lightbox.css">
+
+      <link href="/media/img/ico-antares.ico" rel="shortcut icon" />
+      <script src="/js/jquery-3.2.1.js"></script>
+      <script src="/js/lightbox.js" type="text/javascript"></script>
+      <script src="/plugins/pushJs/push.js"></script>
+      <% include ../shortcodes/managerNotificationsArtist %>
+      <% include ../shortcodes/managerNotificationsBuyerLikes %>
+      <% include ../shortcodes/managerAsideArtist %>
+      <title>Artist</title>
+   </head>
+<body class="body-artist">
+
+<!-- modal add image or picture -->
+<% include ../shortcodes/modal-add-image %>
+<!-- modal add video -->
+<% include ../shortcodes/modal-add-video %>
+
+
+
+              <!-- moadal erase -->
+
+<div class="modal fade erase-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Eliminar obra</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                  <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                                <form class="text-center">
+                                                                        
+                                                   
+
+                                                            <h1>¡Realmente desea eliminar la obra por completo!</h1>
+                                    
+                                
+                                
+                                                                </form>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                <form action="eraseArtForId" method="post">
+                                                                  <input id="idArtModalErase" type="hidden" name="idArt">
+                                                                  <button type="submit" class="btn btn-antares">Eliminar</button>
+                                                                </form>
+                                                             
+                                                              </div>
+                                    </div>
+                </div>
+              </div>
+
+
+
+    <span class="go-top"> <i class="fas fa-angle-up"></i></span>
+   <!-- header and nav -->
+<header class="container-fluid navbar-border-bot-artist fixed-top" >
+
+<nav class="navbar navbar-toggleable-md navbar-light container ">
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        
+        </button>
+
+        <a class="navbar-brand" href="artist">
+                <img src="/media/img/logo-antares.png" class="img-brand" alt="">
+        </a>
+      
+        <div class="switch-acount navbar-brand d-lg-none"><a href="buyers" ><img src="/media/img/switch.png"   data-toggle="tooltip" data-placement="bottom" title="Cambiar a mi cuenta de comprador"></a> </div>  
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <div class="navbar-nav text-center">
+                <a class="nav-item nav-link active items-link-nav" href="/artist"><i class="fas fa-home"></i> Inicio</a>
+                
+
+          </div>
+         
+          <div class="switch-acount2 d-none d-lg-block"><a href="/buyers" ><img src="/media/img/switch.png" data-toggle="tooltip" data-placement="bottom" title="Cambiar a mi cuenta de comprador"></a> </div>  
+       
+    
+
+         
+          <form class="form-inline my-2 my-lg-0 ml-auto">
+                <div class="input-group group-serach-nav">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Buscar" >
+                        <button class="btn btn-search"><i class="fas fa-search"></i></button>
+               </div>
+          </form>
+<!-- navbar mobile -->
+          <div class="navbar-nav d-lg-none mobile-menu-antares-artist">
+
+
+                <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                  <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                      <a class="btn btn-link" href="artist-notification-list" >
+                                                <span style="display:none;" class="number-notifi-mobile" id="number-notifications-artist-mobile"></span>   <i class="far fa-bell" ></i> Mis notificaciones 
+                                      </a>
+                                    </h5>
+                                  </div>
+
+                                </div>
+
+                                <div class="card">
+                                                <div class="card-header" id="headingOne">
+                                                  <h5 class="mb-0">
+                                                    <a class="btn btn-link" href="artist-likes-list" >
+                                                                <span style="display:none;" class="number-likes-mobile" id="number-notifications-artist-likes-mobile"></span>        <i class="far fa-heart" ></i> Me gusta recibidos
+                                                    </a>
+                                                  </h5>
+                                                </div>
+              
+                                   </div>
+
+
+
+                                <div class="card">
+                                  <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                      <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#activity" aria-expanded="false" aria-controls="collapseTwo">
+                                                <i class="fas fa-chart-line"></i> Mi actividad <i class="fas fa-sort-down"></i>
+                                      </a>
+                                    </h5>
+                                  </div>
+                                  <div id="activity" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                                <ul class="list-group">
+                                                                <div class="container-custom-tarjet">
+        
+
+                                                                                <div class="row text-center">
+                                                                                    <div class="col-xs-2 col-sm-2 col-md-2  ">
+                                                                                          
+                                                                                            <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                                                                                <img   class="avatar-artist" src="/media/img/avatar-default.png"  />
+                                                                                                <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                                                                                        <img  class="avatar-artist" src="<%= user.image_ar %>" /> 
+                                                                                                  <% }else{ %>
+                                                                                                 <img  class="avatar-artist" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                                                                          <% } %>
+                                                                                    </div>
+                                                                                    <div class="col-xs-10 col-sm-10 col-md-10 d-flex align-items-center ">
+                                                                                            <p class="name-artist"><%= user.name_ar  %>   </p>
+                                                                                 
+                                                                                         
+                                                                                     </div>
+                                                                                    
+                                                                                </div>
+                                                                        
+                                                                                <div class="row text-center mb-1">
+                                                                                    <div class="col-12 container-stars" id="container_rating_artist_mobile">
+                                                                                                    <i class="far fa-star"></i>
+                                                                                                    <i class="far fa-star"></i>
+                                                                                                    <i class="far fa-star"></i>
+                                                                                                    <i class="far fa-star"></i>
+                                                                                                    <i class="far fa-star"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row text-center row-transfers">
+                                                                                        <div class="col-12">
+                                                                                              Transferencias pendientes
+                                                                                        </div>
+                                                                                        <div class="col-12 font-weight-bold" id="transfers_pending_value_artist_mobile">
+                                                                                               $ 0 MXN
+                                                                                         </div>
+                                                                                        
+                                                                                </div>
+                                                                            
+                                                                                <div class="row text-center mt-2">
+                                                                                    <div class="col-4  ">
+                                                                                        <button class="btn btn-items"> <span class="span-result" id="follows_value_artist_mobile"> 0 </span><br><span class="span-subtitle"> seguidores </span></button>
+                                                                                      
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                            <button class="btn btn-items"> <span class="span-result" id="in_sold_artist_mobile"> 0 </span><br><span class="span-subtitle"> En venta </span></button>
+                                                                                        </div>
+                                                                                        <div class="col-4">
+                                                                                                <button class="btn btn-items"> <span class="span-result" id="in_auction_artist_mobile"> 0 </span><br><span class="span-subtitle"> En subasta </span></button>
+                                                                                            </div>
+                                                                                </div>
+                                                                
+                                                                            </div>
+                                                                <a href="/artist-arts-bought"  class="list-group-item"> <span class="span-menu-mobile1" id="number_sold_artist_mobile">0</span> <span class="span-menu-mobile2" > Obras Vendidas</span> </a>
+                                                                <a href="/artist-arts-shipping-free-list" class="list-group-item"><span class="span-menu-mobile1" id="number_pending_send_artist_mobile">0</span> <span class="span-menu-mobile2"> Pendientes para Envió</span></a>
+                                                                <a href="/artist-arts-in-test-by-buyer" class="list-group-item"><span class="span-menu-mobile1" id="number_test_by_buyer_artist_mobile">0</span> <span class="span-menu-mobile2"> En Prueba Por Comprador</span>
+                                                                 <a href="/artist-sent-works"  class="list-group-item"> <span class="span-menu-mobile1" id="number_send_buyer_artist_mobile">0</span> <span class="span-menu-mobile2"> Obras enviadas a comprador</span> </a>
+                                                                <a href="/artist-pending-auctions" class="list-group-item"><span class="span-menu-mobile1" id="number_pending_paid_buyer_artist_mobile">0</span> <span class="span-menu-mobile2"> Subastas terminadas</span></a>
+                                                                <a href="/artist-returned-works" class="list-group-item"><span class="span-menu-mobile1" id="number_arts_returned_artist_mobile">0</span> <span class="span-menu-mobile2"> Obras regresadas</span></a>
+
+
+
+                                                                <div class="card">
+                                                                                <div class="card-header btn-link2" >
+                                                                                  <h5 class="mb-0">
+                                                                                    <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#popular" aria-expanded="false" aria-controls="popular">
+                                                                                                 MÁS POPULARES <i class="fas fa-sort-down"></i>
+                                                                                    </a>
+                                                                                  </h5>
+                                                                                </div>
+                                                                                <div id="popular" class="collapse" aria-labelledby="headingTwo" data-parent="#popular">
+                                                                                  <div class="card-body">
+                                                                                                <div class="row m-4">
+                                                                                                      
+                                                                                        
+                                                                                                                <div id="containerArtsLikesMobile" class="col-12 ">
+                                                                                                             
+                                                                                                                      
+                                                                                                
+                                                                                                                      
+                                                                                                                        </div>
+                                                                                        
+                                                                                                                <div id="containerArtsLikesLinkMobile" class="col-12 text-center mt-2">
+                                                                                        
+                                                                                                                       
+                                                                                                                </div>
+                                                                                                               
+                                                                                                            </div>
+                                                                                    
+                                                                                  </div>
+                                                                                </div>
+                                                                </div>
+                                               </ul>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="card">
+                                                <div class="card-header" >
+                                                  <h5 class="mb-0">
+                                                    <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#profile" aria-expanded="false" aria-controls="collapseTwo">
+                                                                <i class="fas fa-user-circle"></i> Perfil <i class="fas fa-sort-down"></i>
+                                                    </a>
+                                                  </h5>
+                                                </div>
+                                                <div id="profile" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                  <div class="card-body">
+                                                              <ul class="list-group">
+                                                                              <a href="/artist-profile"  class="list-group-item"><i class="far fa-edit ico-le"></i> Modificar perfil</a>
+                                                                       
+                                                                              <a href="/artist-transfers-payments" class="list-group-item"><i class="fas fa-exchange-alt ico-le"></i> Mis transferencias y pagos</a>
+                                                                        
+                                                                              <a href="/exit-session" class="list-group-item"><i class="fas fa-sign-out-alt ico-le"></i> Cerrar sessión</a>
+                                                             </ul>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="card">
+                                                        <div class="card-header" >
+                                                          <h5 class="mb-0">
+                                                            <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#idioms" aria-expanded="false" aria-controls="collapseTwo">
+                                                                        <i class="fas fa-globe-americas"></i> Idiomas <i class="fas fa-sort-down"></i>
+                                                            </a>
+                                                          </h5>
+                                                        </div>
+                                                        <div id="idioms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                          <div class="card-body">
+                                                                      <ul class="list-group">
+                                                                                      <a href="#"  class="list-group-item">Español</a>
+                                                                                      <a href="#" class="list-group-item">Ingles</a>
+                                                                                      
+                                                                     </ul>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+        
+
+                                                      <div class="card">
+                                                                <div class="card-header" id="headingOne">
+                                                                  <h5 class="mb-0">
+                                                                        <a href="/artist-contact" class="btn btn-link" type="button" >
+                                                                                <i class="far fa-envelope" ></i>  Contactar con antares
+                                                                    </a>
+                                                                  </h5>
+                                                                </div>
+                              
+                                                   </div>
+
+
+                            
+                              </div>
+           </div>
+<!-- end navbar mobile -->
+
+
+<div class="d-none d-lg-block">
+          <div class=" navbar-nav  ">
+            
+           
+   
+               
+                <a class="nav-item nav-link icon-nav d-none d-sm-block d-sm-none d-md-block" href="/artist-contact"><i class="far fa-envelope"  data-toggle="tooltip" data-placement="bottom" title="Contactar con Antares"></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Contactar con Antares</span></a>
+    
+          
+   <!-- notifications list -->
+   <li class="li-list-custom nav-item dropdown d-none d-sm-block d-sm-none d-md-block">
+        <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span style="display:none;" id="number-notifications-artist" class="number-notifi"></span>
+                <i class="far fa-bell" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Me gusta recibidos</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+       
+        <div class="row header-list"> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left "><span class="ml-2">NOTIFICACIONES</span></div> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right"><a href="artist-notification-list" class="mr-2 see-all-list">VER TODAS</a></div> </div>
+       
+     
+        <div id="container-notifi-artist" class="container-likes">
+
+
+        </div>
+
+        </div>
+     </li>
+<!-- end notifications list -->          
+
+  <!-- likes list -->
+            <li class="li-list-custom nav-item dropdown d-none d-sm-block d-sm-none d-md-block">
+                    <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span style="display:none;" id="number-notifications-artist-likes" class="number-likes"></span>     <i class="far fa-heart" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Me gusta recibidos</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                   
+                    <div class="row header-list"> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left "><span class="ml-2">LIKES</span></div> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right"><a href="artist-likes-list" class=" mr-2 see-all-list">VER TODOS</a></div> </div>
+                   
+                 
+                    <div id="container-notifi-artist-likes" class="container-likes">
+
+   <!-- Template like list -->
+                       <a  href="#" class="btn">
+                            <div class="row">
+                                    <div class="col-xs-2 col-sm-2 col-md-2  ">
+                                            <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                                    </div>
+                                    <div class="col-xs-10 col-sm-10 col-md-10  ">
+                                           <div class="row">
+                                               <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                                                 
+                                           </div>
+                            
+                                           <div class="row ">
+                                                <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+                                 
+                                           </div>
+                                   
+                                     </div>
+                            </div>
+                        </a>
+
+  <!-- End Template like list -->
+
+     <!-- Template like list -->
+     <a  href="#" class="btn">
+            <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-2  ">
+                            <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10  ">
+                           <div class="row">
+                               <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                                 
+                           </div>
+            
+                           <div class="row ">
+                                <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+                 
+                           </div>
+                   
+                     </div>
+            </div>
+        </a>
+
+<!-- End Template like list -->
+   <!-- Template like list -->
+   <a  href="#" class="btn">
+        <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                        <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10  ">
+                       <div class="row">
+                           <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                             
+                       </div>
+        
+                       <div class="row ">
+                            <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+             
+                       </div>
+               
+                 </div>
+        </div>
+    </a>
+
+<!-- End Template like list -->
+   <!-- Template like list -->
+   <a  href="#" class="btn">
+        <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                        <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10  ">
+                       <div class="row">
+                           <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                             
+                       </div>
+        
+                       <div class="row ">
+                            <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+             
+                       </div>
+               
+                 </div>
+        </div>
+    </a>
+
+<!-- End Template like list -->
+   <!-- Template like list -->
+   <a  href="#" class="btn">
+        <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                        <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10  ">
+                       <div class="row">
+                           <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                             
+                       </div>
+        
+                       <div class="row ">
+                            <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+             
+                       </div>
+               
+                 </div>
+        </div>
+    </a>
+
+<!-- End Template like list -->
+   <!-- Template like list -->
+   <a  href="#" class="btn">
+        <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                        <img  class="avatar-likes" src="/media/img/avatar-default.png" alt="">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10  ">
+                       <div class="row">
+                           <div class="col text-left pl-2 list-title">  <strong> Nicolás te ha dado un  me gusta</strong></div>
+                             
+                       </div>
+        
+                       <div class="row ">
+                            <div class="col text-left pl-2 list-subtitle">En pintura óleo tranquilo</div>
+             
+                       </div>
+               
+                 </div>
+        </div>
+    </a>
+
+<!-- End Template like list -->
+  
+  
+
+                   </div>
+   
+                    </div>
+                 </li>
+ <!-- end likes list -->
+
+ <li class="nav-item dropdown ">
+        <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-globe-asia" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Lenguaje</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+           <a href="#" class="dropdown-item">Español</a>
+           <a href="#" class="dropdown-item">Ingles</a>
+
+           
+        </div>
+     </li>
+            
+            <li class="nav-item dropdown ">
+                <a class="nav-link " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                        <img   class="avatar-artist-nav" src="/media/img/avatar-default.png"  />
+                                        <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                          <img  class="avatar-artist-nav" src="<%= user.image_ar %>" /> 
+                                          <% }else{ %>
+                                         <img  class="avatar-artist-nav" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                  <% } %> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Nombre del artista </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                   <a href="artist-profile" class="dropdown-item"><i class="far fa-edit"></i> Modificar perfil</a>
+                
+                   <a href="artist-transfers-payments" class="dropdown-item"><i class="fas fa-exchange-alt"></i>  Mis transferencias y pagos</a>
+                
+                   <a href="/exit-session" class="dropdown-item"> <i class="fas fa-sign-out-alt"></i>  Cerrar sessión </a>
+                   
+                </div>
+             </li>
+
+
+             <!-- actividad -->
+
+             <li class="nav-item dropdown d-none d-none d-sm-block d-md-none d-block d-sm-none mt-2 mb-2">
+                <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-globe-asia" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Lenguaje</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="row">
+                              
+                                <div class="col-12">
+                                                <a href="#"> <span class="span-title">Ofertas de Subasta: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                  
+                                                  <div class="col-12">
+                                                          <a href="#"> <span class="span-title">Pendientes para Envió: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                                               
+                                                  <div class="col-12">
+                                                          <a href="#"> <span class="span-title">Recibidas por Comprador: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                                                  <div class="col-12">
+                                                          <a href="#"> <span class="span-title">Subastas en espera de pago: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                                                  <div class="col-12">
+                                                          <a href="#"> <span class="span-title">Obras rechazadas: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                                                  <div class="col-12">
+                                                          <a href="#"> <span class="span-title">Tratos cerrados: </span>  <span class="span-subtitle">2</span></a>     
+                                                  </div>
+                        </div>
+        
+                   
+                </div>
+             </li>
+
+             <!-- end actividad -->
+        
+
+      </div>
+
+      </div>
+        </div>
+</nav>
+</header>
+    <!-- end header and nav -->

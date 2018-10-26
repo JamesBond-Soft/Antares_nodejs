@@ -1,0 +1,217 @@
+<% include artist-header %>
+
+<section class="container">
+
+<div class="row">
+
+        <% include artist-aside %>
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+ 
+
+<!-- list and pagination arts -->
+
+<div class="row">
+                <div  class="col-xs-12 text-center filter-head ">Editar obra  </div>
+        </div>
+
+<!-- art video template -->
+<div class="container-art mt-4">
+            
+                              <div class="modal-body">
+                                        <form>
+                                                                        
+                                                        <div class="row">
+                          
+                                                                  <div class="col-xs-12 text-center filter-head mt-3 mb-2">Cargar video de la obra</div>
+                                                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                                                          
+<div class="container-fix-art">
+               
+        
+        <video class="video-art " width="100%" height="340" controls>
+                      
+            <source src="media/video/videoplayback.mp4" type="video/mp4" />
+              
+        </video>
+
+</div> 
+        
+                                                                                <br>
+                                                                  <input type='file' id="imgInp"  />
+                                                                  <br>
+                                                                  <small>Clic sobre el botón para cargar video de la obra </small>
+                                                                
+                          
+                                                                  </div>
+                          
+                                                                  <div class="col-xs-12 text-center filter-head mt-3">Información basica</div>
+                          
+                                                                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                                
+                                                                                  <label for="exampleInputEmail1"><strong>Titulo de la obra</strong> </label>
+                                                                                  <input  type="text" class="form-control text-center  input-antares2 " id="exampleInputEmail1"  placeholder="Ingrese el titulo de la obra(publico)" >
+                                                                      
+                                                          </div>
+                          
+                                                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                         
+                                                                                          <label for="exampleInputEmail1"><strong>Autor</strong> </label>
+                                                                                          <input  type="text" class="form-control text-center  input-antares2 " id="exampleInputEmail1"  placeholder="Ingrese el autor" value="Felipe Olvera Perez">
+                                                                        
+                                                                  </div>
+                                                            
+                                                                  <div class="col-xs-12 text-center filter-head mt-3">Modo de venta</div>
+                                                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                         
+                                                                                  <label for="exampleInputEmail1"><strong>Venta directa (mxn)</strong> </label>
+                                                                                  <input id="vventaInput" type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el precio de obra en pesos mexicanos" >
+                                                                                  
+                                                          </div>
+                                                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                         
+                                                                          <label for="exampleInputEmail1"><strong>Subastar obra (periodo 3 dias) (mxn)</strong> </label>
+                                                                          <input id="vsubastaInput" type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese la oferta mínima para iniciar la subasta pesos mexicanos" >
+                                                                          
+                                                           </div>
+                          
+                          
+                                                                 <div  class="col-xs-12 text-center filter-head mt-3">Medidas de la obra (sólo si aplican)</div>
+                          
+                                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                
+                                                                          <label for="exampleInputEmail1"><strong>Altura cm</strong> </label>
+                                                                          <input  type="number" class="form-control text-center  input-antares2 " id="exampleInputEmail1"  placeholder="Ingrese la altura en cm" >
+                                                              
+                                                                  </div>
+                                                                  
+                                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                
+                                                                          <label for="exampleInputEmail1"><strong>Ancho cm</strong> </label>
+                                                                          <input  type="number" class="form-control text-center  input-antares2 " id="exampleInputEmail1"  placeholder="Ingrese el ancho en cm" >
+                                                              
+                                                                  </div>
+                                                                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                
+                                                                                  <label for="exampleInputEmail1"><strong>Profundidad cm</strong> </label>
+                                                                                  <input  type="number" class="form-control text-center  input-antares2 " id="exampleInputEmail1"  placeholder="Ingrese la profundidad en cm" >
+                                                                      
+                                                                          </div>
+                                                                       
+                          
+                                                        </div>
+
+                                                      
+                                                        <div class="container-filters-buyers mt-4 ">
+                                                                  <div class="row">
+                                                                          <div id="vfilter-head-down" class="col-xs-12 text-center filter-head ">Etiqueta tu obra utilizando los filtros de abajo  <i class="fas fa-sort-down d-lg-none pr-2"></i></div>
+                                                                  </div>
+                                                                  <div id="vrow-filters" class="row row-filters pb-2">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                                            
+                                                                            <div class="multiselect">
+                                                                                            <div class="selectBox" onclick="vshowCheckboxes()">
+                                                                                              <div class="selection">
+                                                                                               Categoría <i class="fas fa-sort-down"></i>
+                                                                                              </div>
+                                                                                              <div class="overSelect"></div>
+                                                                                            </div>
+                                                                                            <div id="vcheckboxesb">
+                                                                                              <label for="vca1">
+                                                                                                <input type="checkbox" id="vca1" />pintura</label>
+                                                                                              <label for="vca2">
+                                                                                                <input type="checkbox" id="vca2" />obra gráfica</label>
+                                                                                              <label for="vca3">
+                                                                                                <input type="checkbox" id="vca3" />Escultura</label>
+                                                                                              <label for="vca4">
+                                                                                               <input type="checkbox" id="vca4" />Dibujo</label>
+                                                                                               <label for="vca5">
+                                                                                               <input type="checkbox" id="vca5" />Instalaciones</label>
+                                                                                            </div>
+                                                                           </div>
+                                                            
+                                                            
+                                                            
+                                                            </div>
+                                                                                  
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                                                            <div class="multiselect">
+                                                                                            <div class="selectBox" onclick="vshowCheckboxes2()">
+                                                                                                            <div class="selection">
+                                                                                                                            técnica <i class="fas fa-sort-down"></i>
+                                                                                                                           </div>
+                                                                                                                           <div class="overSelect"></div>
+                                                                                            </div>
+                                                                                            <div id="vcheckboxesb2">
+                                                                                       <div class="subtheme">PINTURA</div>
+                                                                                              <label for="v4">
+                                                                                                <input type="checkbox" id="v4" />Óleo</label>
+                                                                                              <label for="v5">
+                                                                                                <input type="checkbox" id="v5" />Acrílicos</label>
+                                                                                              <label for="v6">
+                                                                                                <input type="checkbox" id="v6" />Mixtos</label>
+                                                            
+                                                                                                <div class="subtheme">OBRA GRÁFICA</div>
+                                                            
+                                                                                                <label for="va4">
+                                                                                                            <input type="checkbox" id="va4" />Aguafuerte</label>
+                                                                                                          <label for="va5">
+                                                                                                            <input type="checkbox" id="va5" />Aguatinta</label>
+                                                                                                          <label for="va6">
+                                                                                                            <input type="checkbox" id="va6" />Punta seca</label>
+                          
+                                                                                                        
+                          
+                                                                                                            
+                                                                                            </div>
+                                                            
+                                                                           </div>
+                                                            </div>
+                                                                                    
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center pt-2">
+                                                                            <div class="multiselect">
+                                                                                            <div class="selectBox" onclick="vshowCheckboxes3()">
+                                                                                                            <div class="selection">
+                                                                                                                            tematica <i class="fas fa-sort-down"></i>
+                                                                                                                           </div>
+                                                                                                                           <div class="overSelect"></div>
+                                                                                            </div>
+                                                                                            <div id="vcheckboxesb3">
+                                                                                              <label for="v7">
+                                                                                                <input type="checkbox" id="v7" />Figurativo</label>
+                                                                                              <label for="v8">
+                                                                                                <input type="checkbox" id="v8" />Surrealista</label>
+                                                                                              <label for="v9">
+                                                                                                <input type="checkbox" id="v9" />Desnudos</label>
+                                                                                            </div>
+                                                                           </div>
+                                                            </div>
+                                                            
+                                                                  </div>
+                                                                 </div>
+                              
+                          
+                          
+                                                          </form>
+                              </div>
+                              <div class=" text-center mb-2">
+                                
+                                <button type="button" class="btn btn-antares">Actualizar</button>
+                              </div>
+        
+ 
+
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+
+<% include artist-footer %>

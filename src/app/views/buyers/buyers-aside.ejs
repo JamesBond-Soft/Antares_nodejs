@@ -1,0 +1,139 @@
+    <!-- aside -->
+    <div class="col-xs-12 col-sm-12   col-md-4 push-md-8  col-lg-4 ">
+
+
+
+        <div class="container-custom-tarjet pb-0  d-none d-lg-block">
+    
+           
+       
+    
+            <div class="row text-center">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                                <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                        <img   class="avatar-artist mb-2" src="/media/img/avatar-default.png"  />
+                                        <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                                <img  class="avatar-artist mb-2" src="<%= user.image_ar %>" /> 
+                                          <% }else{ %>
+                                         <img  class="avatar-artist mb-2" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                  <% } %>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 d-flex align-items-center ">
+                        <p class="name-artist"><%= user.name_ar  %>   </p>
+             
+                     
+                 </div>
+                
+            </div>
+    
+
+            <div class="row text-center row-transfers">
+                    <div class="col-12">
+                                    <a href="/buyers-artist-list"><span class="span-subtitle"> Siguiendo </span>  <span class="span-result" id="number-follows-buyer"> 0 </span></a>
+                    </div>
+                    
+            </div>
+        
+
+
+        </div>
+
+
+        <!-- second card -->
+        <div class="container-custom-tarjet mt-3 p-4  d-none d-none d-md-block d-lg-none d-none d-lg-block d-xl-none d-none d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+             
+                <h1 class="divi-title">   Actividad</h1>
+                </div>
+                <div class="col-12 ">
+<a href="buyers-arts-bought"><span class="span-title">Compradas: </span>  <span id="number_buy" class="span-subtitle">0</span></a>
+                    </div>
+                    <!-- <div class="col-12">
+                            <span class="span-title">Ofertas Ventas: </span>  <span class="span-subtitle">2</span>
+                        </div> -->
+                        <div class="col-12">
+                          <a href="/buyers-auction-offers"> <span class="span-title">Mis ofertas de Subasta: </span>  <span id="number_my_offers" class="span-subtitle">0</span></a>     
+                            </div>
+
+                            <div class="col-12">
+                                    <a href="/buyers-shipping-pending"> <span class="span-title">Pendientes de Envió: </span>  <span id="number_pending_send" class="span-subtitle">0</span></a>     
+                            </div>
+                            <div class="col-12">
+                                            <a href="/buyers-on-route"> <span class="span-title">En ruta: </span>  <span class="span-subtitle" id="in_rute">0</span></a>     
+                                    </div>
+                                    <div class="col-12">
+                                                    <a href="/buyers-in-test"> <span class="span-title">En prueba: </span>  <span class="span-subtitle" id="in_test">0</span></a>     
+                                            </div>
+                         
+                      
+                            <div class="col-12">
+                                    <a href="/buyers-paid-pending-auction"> <span class="span-title">Subastas en espera de pago: </span>  <span class="span-subtitle" id="number_pending_paid">0</span></a>     
+                            </div>
+                            <div class="col-12">
+                                    <a href="/buyers-art-return-list"> <span class="span-title">Obras regresadas: </span>  <span class="span-subtitle" id="number_returned">0</span></a>     
+                            </div>
+                           
+            </div>
+
+
+
+                
+            <div class="row mt-4">
+                    <div class="col-12 ">
+                 
+                    <h1 class="divi-title">Subastas en curso</h1>
+
+                  
+                    </div>
+
+                    <div id="containerArtsAuctionsInCurse">
+
+                    </div>
+              
+
+            
+
+                    <div id="containerArtsAuctionsInCurseLink" class="col-12 text-center mt-2">
+
+                           
+                    </div>
+                   
+                </div>
+
+                <div class="row mt-4">
+                            <div class="col-12 ">
+                            <h1 class="divi-title">Estados</h1>
+                            </div>
+
+                            <div id="container-arts-states-aside">
+
+                            </div>
+    
+                            <div id="container-show-more-aside" class="col-12 text-center mt-2 container-show-more-aside">
+                                  
+                            </div>
+                           
+                        </div>
+
+                <div class="row mt-4">
+                        <div class="col-12 ">
+                     
+                        <h1 class="divi-title">  Banner 1</h1>
+                        </div>
+                       
+                        <div class="col-12 ">
+                     
+                                <img class="banner-1" src="/media/img/banner1.jpg" alt="">
+
+</div>
+                    </div>
+
+
+
+        </div>
+
+
+     </div>
+<!-- en aside -->
+<% include ../shortcodes/managerAsideBuyer %>

@@ -1,0 +1,381 @@
+<script>
+
+  var limitArsAsideStates=4;//important 1
+  var containerArtsStates=$("#container-arts-states-aside");
+  var containerShowMoreAside=$("#container-show-more-aside");
+
+    var containerArtsStatesMobile=$("#container-arts-states-aside-mobile");
+  var containerShowMoreAsideMobile=$("#container-show-more-aside-mobile");
+
+    artistArtsStates(limitArsAsideStates);
+    
+     function artistArtsStates(limit){
+            
+     $.ajax({
+        url: "/getArtsStatesAsideBuyer",
+        method: 'POST',
+        dataType:'JSON',
+        data:{limit:limit},
+        beforeSend: function(){
+     
+        },
+       success: function(response){ 
+           
+       
+        
+        
+    var htmlArts='';
+        for(var i=0; i<response.data.length; i++){
+              
+            let item = response.data[i];
+            var htmlVideoImage=``;
+
+            if(item.type_art=="image"){
+    
+          if(item.status_step_art=='received-buyer'){
+            htmlVideoImage=` 
+                <img src="/imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+                `;
+          }else{
+            htmlVideoImage=` 
+                <img src="/imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+                <div class="state-art state-in-rute text-center" >EN RUTA</div>  `;
+          }
+            }else{
+                if(item.status_step_art=='received-buyer'){
+                    htmlVideoImage=`<video class="video-art" width="100%" height="200" controls>
+                   <source src="/videosArs/`+item.url_art+`" type="video/mp4" />
+                                                           
+                </video>
+
+                `;
+                }else{
+                    htmlVideoImage=`<video class="video-art" width="100%" height="200" controls>
+                   <source src="/videosArs/`+item.url_art+`" type="video/mp4" />
+                                                           
+                </video>
+                <div class="state-art state-in-rute text-center" >EN RUTA</div>
+                `;
+                }
+            }
+var idSaleOrAuction=0;
+var nameSale="";
+if(item.type_sale_art=="direct"){
+idSaleOrAuction=item.id_sale;
+nameSale="id_sale";
+}else{
+idSaleOrAuction=item.id_auction;
+nameSale="id_auction";
+}
+    
+if(item.status_step_art=='send-buyer'){
+htmlArts+=`
+<div class="col-12 container-subs-in-cource" data-toggle="tooltip" data-placement="bottom" title="Clic para más detalles">
+<form action="/goBuyerTypeStatesOnRoute" method="POST"> 
+<button type="submit" class="text-center  conatiner-img-states">
+<div class="container-fix-art"> 
+`+htmlVideoImage+`
+</div>
+<input type="hidden" name="type_sale_art" value="`+item.type_sale_art+`">
+<input type="hidden" name="`+nameSale+`" value="`+idSaleOrAuction+`">
+</button>
+</form>  
+
+<div class="row text-center">
+ <div class="col-12"><Strong>`+item.title_art+` - `+item.measurements+` - `+item.name_creator+`</Strong></div>
+</div>
+</div>`;
+    
+}else if(item.status_step_art=='received-buyer'){
+
+htmlArts+=`
+<div class="col-12 container-subs-in-cource " data-toggle="tooltip" data-placement="bottom" title="Clic para más detalles"> 
+         
+    <a href="/buyers-in-test">
+<button type="submit" class="text-center  conatiner-img-states " >
+<div class="container-fix-art"> 
+`+htmlVideoImage+`
+</div>
+
+
+<input type="hidden" name="type_sale_art" value="`+item.type_sale_art+`">
+<input type="hidden" name="`+nameSale+`" value="`+idSaleOrAuction+`">
+
+</button>
+</a>               
+<div class="container state-art state-in-test ">
+<div class="row">
+<div class="col-8">
+<span>EN PRUEBA</span>
+</div>
+<div class="col-4 text-right" id="id_art_link_aside_`+item.cod_art+`">
+<a  class="" href="#" ><i class="fas fa-stopwatch"></i></a>
+</div>
+</div>
+</div>
+<div class="row text-center">
+<div class="col-12"><Strong>`+item.title_art+` - `+item.measurements+` - `+item.name_creator+`</Strong></div>
+</div>
+</div>
+<script>
+
+$("#id_art_link_aside_`+item.cod_art+`").click(function(){
+ 
+var itemJson=`+JSON.stringify(item)+`;
+qualifyArtistAside(itemJson);
+});
+</`+`script>
+`;
+            
+        }
+    }
+    if(response.data.length<=0){
+        containerShowMoreAside.html('<div class="container-no-arts-to-show">No hay estados que mostrar</div>');
+        containerShowMoreAsideMobile.html('<div class="container-no-arts-to-show">No hay estados que mostrar</div>');
+
+    }else{
+        containerShowMoreAside.html('<a href="/buyers-states" class="btn load-more-btn">Ver todos</a>');
+        containerShowMoreAsideMobile.html('<a href="/buyers-states" class="btn load-more-btn">Ver todos</a>');
+    }
+    
+        containerArtsStates.html(htmlArts);
+        containerArtsStatesMobile.html(htmlArts);
+    
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    var lightbox = new Lightbox();
+    lightbox.load();
+    
+    },
+    error: function(err) {
+    console.log(JSON.stringify(err));
+     }
+    });
+    
+    }
+    </script>
+<script>
+    function qualifyArtistAside(item){
+            var data=item;
+    
+                 $.ajax({
+                        url: "getDataArtistRating",
+                        method: 'POST',
+                        dataType:'JSON',
+                        data:{cod_artist:item.cod_ar2},
+                        beforeSend: function(){
+                     },
+    success: function(response){  
+    
+    if(response.artist.image_ar == 'media/img/avatar-default.png'){
+            $("#img-rating-artist").attr("src","media/img/avatar-default.png");                           
+    }else if(response.artist.image_ar.indexOf("http")!=-1){ 
+            $("#img-rating-artist").attr("src",response.artist.image_ar);                                       
+    }else{ 
+            $("#img-rating-artist").attr("src",'imagesUsers/'+response.artist.image_ar);                            
+     } 
+     $("#name-rating-artist").text(response.artist.name_ar);
+    
+     //
+    
+     $("#input_type_sale_art").val(item.type_sale_art);
+     if(item.type_sale_art=="direct"){
+            $("#input_id_aucton_sale").val(item.id_sale);
+            $("#input_od_bu4").val(item.cod_bu4);
+
+     
+        
+     }else{
+      $("#input_id_aucton_sale").val(item.id_auction);
+      $("#input_od_bu4").val(item.cod_bu3);
+
+    
+     }
+     $("#input_cod_art").val(item.cod_art);
+     $("#input_title_art").val(item.title_art);
+     $("#input_measurements").val(item.measurements);
+     $("#input_author_art").val(item.author_art);
+    
+     $("#input_cod_artist_rating").val(response.artist.cod_ar);
+     
+      
+    //alert(JSON.stringify(response));
+                    },
+                    error: function(err) {
+                    console.log(JSON.stringify(err));
+                     }
+                    });
+                      
+                     $('#modal-qualify-artist').modal('show');
+    }
+            
+    </script>
+
+  <!--my auctions in curse -->
+
+  <script>
+
+    var limitArsAsideAuctionsInCurse=4;//important 1
+    var containerArtsAuctionsInCurse=$("#containerArtsAuctionsInCurse");
+    var containerArtsAuctionsInCurseLink=$("#containerArtsAuctionsInCurseLink");
+
+    var containerArtsAuctionsInCurseMobile=$("#containerArtsAuctionsInCurseMobile");
+    var containerArtsAuctionsInCurseLinkMobile=$("#containerArtsAuctionsInCurseLinkMobile");
+  
+    ArtsAuctionsInCurse(limitArsAsideAuctionsInCurse);
+    
+     function ArtsAuctionsInCurse(limit){
+            
+     $.ajax({
+        url: "/getArtsAuctionsInCurseAsideBuyer",
+        method: 'POST',
+        dataType:'JSON',
+        data:{limit:limit},
+        beforeSend: function(){
+     
+        },
+       success: function(response){ 
+           
+       
+        
+        
+    var htmlArtsInCurse='';
+        for(var i=0; i<response.data.length; i++){
+            let item = response.data[i];
+
+  if(item.type_art=='image'){
+    htmlArtsInCurse+=`      <div class="col-12 container-subs-in-cource">
+                 
+                 <a href="#" class="text-center  ">
+                       
+                         <img src="/imagesArs/`+item.url_art+`" class="img-subs-in-cource" data-jslghtbx>
+                 </a>
+
+           
+           <div class="row">
+                          <div class="col-12"><Strong>`+item.title_art+` - `+item.measurements+` - `+item.author_art+`</Strong></div>
+                  </div>
+                 <div class="row">
+                         <div class="col-12">  <span class="title-in-cource">Su última oferta:</span> <strong>$ `+item.my_ultimum_offer.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong></div>
+                 </div>
+                 
+                 <div class="row">
+                          <div class="col-12"> <span  class="title-in-cource">Oferta actual:</span> <strong class="actual-offer">$ `+item.offer_actuall.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong></div>
+                  </div>
+                  
+                 <div class="row">
+                          <div class="col-12"><span  class="title-in-cource">Tiempo restante:</span> <strong>`+item.time_to_finish+`</strong></div>
+                  </div>
+
+           </div>`;
+}else{
+    htmlArtsInCurse+=`      <div class="col-12 container-subs-in-cource">
+                 
+                 <a href="#" class="text-center  ">
+                    <video class="video-art" width="100%" height="340" controls>
+                                                          <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                                                            
+                                                      </video>
+                 </a>
+
+                 <div class="row">
+                          <div class="col-12"><Strong>`+item.title_art+` - `+item.measurements+` - `+item.author_art+`</Strong></div>
+                  </div>
+                 <div class="row">
+                         <div class="col-12">  <span class="title-in-cource">Su última oferta:</span> <strong>$`+item.my_ultimum_offer.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong></div>
+                 </div>
+                 
+                 <div class="row">
+                          <div class="col-12"> <span  class="title-in-cource">Oferta actual:</span> <strong class="actual-offer">$`+item.offer_actuall.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong></div>
+                  </div>
+                  
+                 <div class="row">
+                          <div class="col-12"><span  class="title-in-cource">Tiempo restante:</span> <strong>`+item.time_to_finish.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong></div>
+                  </div>
+
+           </div>`;
+}
+
+        
+       
+        }
+        containerArtsAuctionsInCurse.html(htmlArtsInCurse);
+        containerArtsAuctionsInCurseMobile.html(htmlArtsInCurse);
+
+    if(response.data.length<=0){
+        containerArtsAuctionsInCurseLink.html('<div class="container-no-arts-to-show">No tienes subastas en curso </div>');
+        containerArtsAuctionsInCurseLinkMobile.html('<div class="container-no-arts-to-show">No tienes subastas en curso </div>');
+
+    }else{
+        containerArtsAuctionsInCurseLink.html(' <a href="/buyers-auction-offers" class="btn load-more-btn">Ver todos</a>');
+        containerArtsAuctionsInCurseLinkMobile.html(' <a href="/buyers-auction-offers" class="btn load-more-btn">Ver todos</a>');
+    }
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    var lightbox = new Lightbox();
+    lightbox.load();
+    
+    },
+    error: function(err) {
+    console.log(JSON.stringify(err));
+     }
+    });
+    
+    }
+    </script>
+
+    <script>
+ 
+
+     $( document ).ready(function() {
+      /// rellanar infromacion aside
+      buyerAsideInfo();
+    function buyerAsideInfo(){
+           
+            $.ajax({
+               url: "/getInfoBuyerAside",
+               method: 'POST',
+               dataType:'JSON',
+               data:{},
+               beforeSend: function(){
+            
+               },
+              success: function(response){ 
+         
+            let item = response.data[0];
+
+//alert(JSON.stringify(item));
+
+$("#number_buy").text(item.number_buy);
+$("#number_my_offers").text(item.number_my_offers);
+$("#number_pending_send").text(item.number_pending_send);
+$("#in_rute").text(item.in_rute);
+$("#in_test").text(item.in_test);
+$("#number_pending_paid").text(item.number_pending_paid);
+$("#number_returned").text(item.number_returned);
+$("#number-follows-buyer").text(item.number_followers); 
+
+
+$("#number_buy_mobile").text(item.number_buy);
+$("#number_my_offers_mobile").text(item.number_my_offers);
+$("#number_pending_send_mobile").text(item.number_pending_send);
+$("#in_rute_mobile").text(item.in_rute);
+$("#in_test_mobile").text(item.in_test);
+$("#number_pending_paid_mobile").text(item.number_pending_paid);
+$("#number_returned_mobile").text(item.number_returned);
+$("#number-follows-buyer_mobile").text(item.number_followers); 
+
+           
+           },
+           error: function(err) {
+           console.log(JSON.stringify(err));
+            }
+           });
+           
+     }
+     });
+    
+    </script>

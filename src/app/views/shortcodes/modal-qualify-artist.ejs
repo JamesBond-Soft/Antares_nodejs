@@ -1,0 +1,175 @@
+<!-- moadal add photo -->
+<form action="setRatingAndStatusFinished" method="post">
+    <div class="modal fade add-photo-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="modal-qualify-artist">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+        
+                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Elige una calificación para el artista</h5>
+                             
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+    
+    
+    
+                                  </div>
+                                  <div class="modal-body">
+                                
+                                      <div class="row text-center">
+                                          <div class="col-xs-12 col-sm-12 col-md-12  ">
+                                          
+                                          <img id="img-rating-artist"  class="avatar-artist" src="/media/img/avatar-default.png"  />           
+                                          </div>
+                                          <div class="col-xs-12 col-sm-12 col-md-12 d-flex align-items-center ">
+                                             <p id="name-rating-artist" class="name-artist">  </p>
+                                       
+                                               
+                                           </div>
+                                          
+                                      </div>
+                              
+                                      <div class="row text-center mb-1">
+                                          <div class="col-12 container-stars">
+                                                          <i class="far fa-star" id="fa-star1"></i>
+                                                          <i class="far fa-star" id="fa-star2"></i>
+                                                          <i class="far fa-star" id="fa-star3"></i>
+                                                          <i class="far fa-star" id="fa-star4"></i>
+                                                          <i class="far fa-star" id="fa-star5"></i>
+                                          </div>
+                                      </div>
+                                
+                                              
+             <input type="hidden" id="input_type_sale_art" name="input_type_sale_art" value="">
+             <input type="hidden" id="input_id_aucton_sale" name="input_id_aucton_sale" value="">
+             <input type="hidden" id="input_cod_art" name="input_cod_art" value="">
+             <input type="hidden"  id="input_title_art" name="input_title_art" value="">
+             <input type="hidden" id="input_measurements" name="input_measurements" value="">
+             <input type="hidden" id="input_author_art" name="input_author_art" value="">
+             <input type="hidden" id="input_od_bu4" name="input_od_bu4" value="">
+             <input type="hidden" id="input_cod_artist_rating" name="input_cod_artist_rating" value="">
+             <input type="hidden" id="input_rating" name="input_rating" value="">
+    
+                               
+                                  </div>
+                                  <div class="modal-footer text-center">
+                                   
+                                    <button type="submit" id="btn-send" class="btn btn-antares" style="width:auto; display:inline-block;  margin-left: auto; margin-right: auto;">FINALIZAR PERIODO DE PRUEBA</button>
+                                  </div>
+        </div>
+      </div>
+    </div>
+    </form>
+
+    <script>
+      var rating=0;
+      $("#input_rating").val(rating);
+
+      $("#fa-star1").click(function(){
+        $("#fa-star1").removeClass('far');
+        $("#fa-star1").addClass('fas');
+
+
+        //
+        $("#fa-star2").addClass('far');
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star3").addClass('far');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star4").addClass('far');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star5").addClass('far');
+        $("#fa-star5").removeClass('fas');
+        
+        rating=1;
+        $("#input_rating").val(rating);
+
+      });
+
+      $( "#fa-star1" ).dblclick(function() {
+        $("#fa-star1").addClass('far');
+        $("#fa-star1").removeClass('fas');
+
+
+        //
+        $("#fa-star2").addClass('far');
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star3").addClass('far');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star4").addClass('far');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star5").addClass('far');
+        $("#fa-star5").removeClass('fas');
+        rating=0;
+        $("#input_rating").val(rating);
+});
+
+            $("#fa-star2").click(function(){
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star2").addClass('fas');
+        $("#fa-star1").removeClass('fas');
+        $("#fa-star1").addClass('fas');
+
+        //
+      
+        $("#fa-star3").addClass('far');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star4").addClass('far');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star5").addClass('far');
+        $("#fa-star5").removeClass('fas');
+        rating=2;
+        $("#input_rating").val(rating);
+      });
+
+                  $("#fa-star3").click(function(){
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star2").addClass('fas');
+        $("#fa-star1").removeClass('fas');
+        $("#fa-star1").addClass('fas');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star3").addClass('fas');
+
+        //
+    
+        $("#fa-star4").addClass('far');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star5").addClass('far');
+        $("#fa-star5").removeClass('fas');
+        rating=3;
+        $("#input_rating").val(rating);
+      });
+
+      
+      $("#fa-star4").click(function(){
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star2").addClass('fas');
+        $("#fa-star1").removeClass('fas');
+        $("#fa-star1").addClass('fas');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star3").addClass('fas');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star4").addClass('fas');
+
+        $("#fa-star5").addClass('far');
+        $("#fa-star5").removeClass('fas');
+        rating=4;
+        $("#input_rating").val(rating);
+      });
+
+        $("#fa-star5").click(function(){
+        $("#fa-star2").removeClass('fas');
+        $("#fa-star2").addClass('fas');
+        $("#fa-star1").removeClass('fas');
+        $("#fa-star1").addClass('fas');
+        $("#fa-star3").removeClass('fas');
+        $("#fa-star3").addClass('fas');
+        $("#fa-star4").removeClass('fas');
+        $("#fa-star4").addClass('fas');
+        $("#fa-star5").removeClass('fas');
+        $("#fa-star5").addClass('fas');
+        rating=5;
+        $("#input_rating").val(rating);
+      });
+    
+ 
+    </script>

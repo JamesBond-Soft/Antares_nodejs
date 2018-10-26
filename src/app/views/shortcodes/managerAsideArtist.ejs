@@ -1,0 +1,160 @@
+<script>
+$( document ).ready(function() {
+
+    var limitcontainerArtsLikes=6;//important 1
+    var containerArtsLikes=$("#containerArtsLikes");
+    var containerArtsLikesLink=$("#containerArtsLikesLink");
+    var containerArtsLikesMobile=$("#containerArtsLikesMobile");
+    var containerArtsLikesLinkMobile=$("#containerArtsLikesLinkMobile");
+  
+    ArtsLikes(limitcontainerArtsLikes);
+    
+     function ArtsLikes(limit){
+            
+     $.ajax({
+        url: "/getArtsLikesMostPopular",
+        method: 'POST',
+        dataType:'JSON',
+        data:{limit:limit},
+        beforeSend: function(){
+     
+        },
+       success: function(response){ 
+        
+    var htmlArtsPopulars='';
+    for(var i=0; i<response.data.length; i++){
+            let item = response.data[i];
+htmlArtsPopulars+=` <button class="btn-more-pupular text-left mb-2"> <span class="span-title">`+item.title_art+` - `+item.measurements+` - `+item.author_art+` </span>  <label class="label-likes"> `+item.number_likes+` <i class="fas fa-heart"></i></label>  </button>`;  
+
+       
+    }
+    containerArtsLikesMobile.html(htmlArtsPopulars);
+    containerArtsLikes.html(htmlArtsPopulars);
+    if(response.data.length<=0){
+    containerArtsLikes.html('<div class="container-no-arts-to-show">No hay datos que mostrar  </div>');
+    containerArtsLikesMobile.html('<div class="container-no-arts-to-show">No hay datos que mostrar  </div>');
+    }else{
+    containerArtsLikesLinkMobile.html(' <a href="/artist-arts-more-popular-list">  <button class="btn load-more-btn">Ver más</button></a> ');
+    containerArtsLikesLink.html(' <a href="/artist-arts-more-popular-list">  <button class="btn load-more-btn">Ver más</button></a> ');
+    }
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    var lightbox = new Lightbox();
+    lightbox.load();
+    
+    },
+    error: function(err) {
+    console.log(JSON.stringify(err));
+     }
+    });
+    
+    }
+
+    /// rellanar infromacion aside
+    artistAsideInfo();
+    function artistAsideInfo(){
+           
+            $.ajax({
+               url: "/getInfoArtistAside",
+               method: 'POST',
+               dataType:'JSON',
+               data:{},
+               beforeSend: function(){
+            
+               },
+              success: function(response){ 
+         
+            let item = response.data[0];
+
+//alert(JSON.stringify(item));
+     
+//
+
+$("#number_sold_artist").text(item.number_sale_arts);
+$("#number_pending_send_artist").text(item.number_pending_send);
+$("#number_test_by_buyer_artist").text(item.number_test_by_buyer);
+$("#number_send_buyer_artist").text(item.number_send_buyer);
+$("#number_pending_paid_buyer_artist").text(item.number_pending_paid_buyer);
+$("#number_arts_returned_artist").text(item.number_arts_returned);
+
+$("#number_sold_artist_mobile").text(item.number_sale_arts);
+$("#number_pending_send_artist_mobile").text(item.number_pending_send);
+$("#number_test_by_buyer_artist_mobile").text(item.number_test_by_buyer);
+$("#number_send_buyer_artist_mobile").text(item.number_send_buyer);
+$("#number_pending_paid_buyer_artist_mobile").text(item.number_pending_paid_buyer);
+$("#number_arts_returned_artist_mobile").text(item.number_arts_returned);
+  
+//transferencias pendientes
+$("#transfers_pending_value_artist").text("$ "+(item.mont_pending_paid_auctions+item.mont_pending_paid_direct).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN");
+$("#transfers_pending_value_artist_mobile").text("$ "+(item.mont_pending_paid_auctions+item.mont_pending_paid_direct).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN");
+//artes en subasta
+$("#in_auction_artist").text(item.number_arts_in_auction);
+$("#in_auction_artist_mobile").text(item.number_arts_in_auction);
+//artes en venta
+$("#in_sold_artist").text(item.number_arts_in_sale);
+$("#in_sold_artist_mobile").text(item.number_arts_in_sale);
+//seguidores
+$("#follows_value_artist").text(item.number_followers);
+$("#follows_value_artist_mobile").text(item.number_followers);
+//stars
+
+
+var starsHtml=``;
+if(item.avg_rating==0 || item.avg_rating==null){
+    starsHtml=`
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>`;
+}else if(item.avg_rating==1){
+    starsHtml=`
+     <i class="fas fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>`;
+}else if(item.avg_rating==2){
+    starsHtml=`
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>`;
+}else if(item.avg_rating==3){
+    starsHtml=`
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="far fa-star"></i>
+     <i class="far fa-star"></i>`;
+}else if(item.avg_rating==4){
+    starsHtml=`
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="far fa-star"></i>`;
+}else if(item.avg_rating==5){
+    starsHtml=`
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>
+     <i class="fas fa-star"></i>`;
+}
+
+$("#container_rating_artist").html(starsHtml);
+           
+$("#container_rating_artist_mobile").html(starsHtml);
+           },
+           error: function(err) {
+           console.log(JSON.stringify(err));
+            }
+           });
+           
+     }
+})
+</script>

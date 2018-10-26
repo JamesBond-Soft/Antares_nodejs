@@ -1,0 +1,83 @@
+<% include artist-header %>
+
+
+<section class="container" style="min-height:85%;">
+
+<div class="row">
+
+    <!-- aside -->
+
+
+
+
+    <!-- arts -->
+ <div class=" col-xs-12 col-sm-12    ">
+        <!-- informacion personal -->
+        <% include ../shortcodes/alerts %>
+        <div id="info1" class="">
+                      
+                       <div class="container-profile mt-0 pt-0 text-center" >
+                                <div class="container-filters-buyers mb-3">
+                                                <div class="row">
+                                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Contactar con Antares</div>
+                                                </div>
+                                          
+                               </div>
+
+
+                                <form action="/artist-contact-send" method="POST" class="p-4 text-justify">
+                                        
+                                                <div class="form-group">
+                                                  <label for="exampleFormControlInput1">Tu Email </label>
+                                                  <input name="email" type="email" class="form-control input-antares2" id="exampleFormControlInput1" placeholder="" value="<%= user.email_ar %>" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                                <label for="exampleFormControlInput1">Teléfono </label>
+                                                                <input name="tel" type="number" class="form-control input-antares2" id="exampleFormControlInput1" placeholder="" required>
+                                                              </div>
+                                        
+                                         
+                                                <div class="form-group">
+                                                  <label for="exampleFormControlTextarea1">Ingresa tu mensaje</label>
+                                                  <textarea name="message" class="form-control input-antares2" id="exampleFormControlTextarea1" rows="10" required></textarea>
+                                                </div>
+                                           
+                                <br>
+                                <div style="text-align:center;">
+                                  <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Enviar</button>
+                                </div>
+                               
+                              </form>
+                        </div>
+
+
+
+        </div>        
+                         </div>
+ 
+ 
+ 
+         </div>
+
+
+                 
+    
+       
+
+
+
+ </div>
+
+    <!-- end arts -->
+
+
+
+  
+
+
+</div>
+
+</section>
+
+<% include artist-footer %>

@@ -1,0 +1,19 @@
+  //creador de thumbails
+
+      var proc = new ffmpeg(path.join(__dirname,'public/media/video/videoplayback.mp4'))
+    .setFfmpegPath(path.join(__dirname,'public/ffmpeg/ffmpeg'))
+    .on('filenames', function(filenames) {
+      console.log('Will generate ' + filenames.join(', '))
+    })
+    .on('end', function() {
+      console.log('Screenshots taken');
+    })
+    .screenshots({
+      timestamps: ['50%'],
+      filename: 'thumbnail_seconds.jpg',
+      folder: path.join(__dirname,'public/media/video/'),
+      size: '640x320'
+    });
+  
+
+  https://html5media.info/

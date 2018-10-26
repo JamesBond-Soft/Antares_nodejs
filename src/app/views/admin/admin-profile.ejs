@@ -1,0 +1,120 @@
+<% include admin-header %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header ml-5">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Mi perfil</h1>
+          </div><!-- /.col -->
+       
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid p-5 ">
+
+
+        <!-- informacion personal -->
+
+        <div id="info1" class="">
+                      
+            <div class="container-profile mt-0 pt-0 text-center" >
+                     <div class="container-filters-buyers mb-3">
+                                     <div class="row">
+                                             <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Información de cuenta</div>
+                                     </div>
+                               
+                    </div>
+
+                    <div class="row">
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                             <label for="imgInp">
+                                             <img id="blah" class="avatar-defaul-profile" src="media/img/avatar-default.png" />
+                                               </label>
+                                           
+                             <input type='file' id="imgInp" style="display:none" />
+                             <br>
+                             <small>Clic sobre el ovalo para cambiar imagen</small>
+                             <br>
+                             <label for="exampleInputEmail1"><strong>Administrador General</strong> </label>
+                           
+
+                             </div>
+                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                           
+                                                             <label for="exampleInputEmail1"><strong>Nombre de usuario</strong> </label>
+                                                             <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el nombre de usuario(publico)" value="Armando Felipe Martinez">
+                                                 
+                                     </div>
+
+                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    
+                                                                     <label for="exampleInputEmail1"><strong>Email</strong> </label>
+                                                                     <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el email" value="armando_example@gmail.com">
+                                                   
+                                             </div>
+
+                                           
+                     </div>
+                     <br>
+                     <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Guardar</button>
+             </div>
+
+             <div class="container-profile mt-4 pt-0 text-center" >
+                <div class="container-filters-buyers mb-3">
+                                <div class="row">
+                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Cambiar Contraseña</div>
+                                </div>
+                          
+               </div>
+
+               <div class="row">
+          
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                      
+                                                        <label for="exampleInputEmail1"><strong>Contraseña actual</strong> </label>
+                                                        <input  type="password" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese la contraseña actual" >
+                                            
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                               
+                                                              
+                                                        <label for="exampleInputEmail1"><strong>Nueva contraseña </strong> </label>
+                                                        <input  type="password" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese la nueva contraseña" >
+                                              
+                                  </div>
+
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                               
+                                                              
+                                               <label for="exampleInputEmail1"><strong>Repetir nueva contraseña </strong> </label>
+                                               <input  type="password" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Repita la nueva contraseña" >
+                                     
+                                    </div>
+
+                                      
+                </div>
+                <br>
+                <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Cambiar contraseña</button>
+        </div>
+
+
+
+</div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <% include admin-footer %>

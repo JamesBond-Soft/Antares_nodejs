@@ -1,0 +1,110 @@
+<% include buyers-header %>
+
+<section class="container">
+
+<div class="row">
+
+        <% include buyers-aside %>
+
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+        <% include ../shortcodes/alerts %>
+
+<!-- list and pagination arts -->
+
+<!-- art img template -->
+<div class="container-art ">
+                <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="/media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+              
+                <!-- <div class="type-title" data-toggle="tooltip" data-placement="bottom" title="Click Mostrar más info sobre la subasta"><button >SUBASTA</button> </div> -->
+ 
+                <% if(art.type_art=='image'){ %>
+                        <div class="container-fix-art"> 
+                                        <img src="/imagesArs/<%= art.url_art %>" class="img-art"  data-jslghtbx>
+                                       </div>
+                        <% }else{ %>
+                           <div class="container-fix-art">
+                           <video class="video-art " width="100%" height="340" controls >  
+                            <source src="/videosArs/<%= art.url_art  %>" type="video/mp4" />
+                            </video>
+                             </div> 
+                         <% }%>
+                
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                              
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span><%= art.title_art %> - <%= art.measurements %>  </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos">  <%= art.number_likes %> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $  <%= art.minimum_bid_art %></strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                        <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Oferta actual"> Oferta actual:  <strong> $  <%= art.offer_actuall %></strong> </label>   
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                
+                                                <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar">  <%= art.time_to_finish %> <i class="fas fa-stopwatch"></i></label> 
+                                        </div>
+                                      
+                            </div>
+                            <form action="/setAuctionBuyerBid" method="POST" autocomplete="off">
+                            <div class="row">
+
+                   
+                                        <div class="col-12 ">
+                                                        <div class="form-group">
+                                                                        <label for="exampleInputEmail1"><strong>Ingrese la cantidad para su oferta en pesos mexicanos</strong> </label>
+                                                                        <input  type="text" class="form-control text-center  input-antares " id="exampleInputEmail1" name="amount_au" placeholder="cantidad">
+                                                                        <small id="emailHelp" class="form-text text-muted">En caso de que la oferta actual no sea la misma que la oferta inicial, La cantidad para su oferta  debe ser mayor a la oferta actual por un minimo de $ 100 mxn .</small>
+
+                                                                        <input  type="hidden" name="cod_ar" value="<%= art.cod_ar2 %>">
+                                                                        <input  type="hidden" name="cod_art" value="<%= art.cod_art %>">
+
+                                                                        <input  type="hidden" name="measurements" value="<%= art.measurements %>">
+                                                                        <input  type="hidden" name="title_art" value="<%= art.title_art %>">
+      
+
+                                                                      </div>
+                                         </div>
+
+                                    <div class="col-12 p-0">
+                                            <button type="submit" class="btn btn-offert">Ofertar</button>
+                                    </div>
+                            
+
+                            </div>
+                        </form>    
+                        </div>
+</div>
+                <!-- end art img template -->
+
+
+
+  
+
+
+
+<!-- end list and pagination arts -->
+
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+<% include buyers-footer-normal %>

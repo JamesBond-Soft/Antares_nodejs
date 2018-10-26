@@ -1,0 +1,262 @@
+<% include buyers-header %>
+
+<section class="container">
+
+<div class="row">
+
+        <% include buyers-aside %>
+
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+        <% include ../shortcodes/alerts %>
+        <!-- art img template -->
+<div class="container-art ">
+        <% if(art.type_sale_art !='direct'){ %>
+        <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="/media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+
+        <!-- <div class="type-title" data-toggle="tooltip" data-placement="bottom" title="Click Mostrar más info sobre la subasta"><button >SUBASTA</button> </div> -->
+   
+
+       <% if(art.type_art=='image'){ %>
+        <div class="container-fix-art"> 
+                        <img src="/imagesArs/<%= art.url_art %>" class="img-art"  data-jslghtbx>
+                       </div>
+        <% }else{ %>
+           <div class="container-fix-art">
+           <video class="video-art " width="100%" height="340" controls >  
+            <source src="/videosArs/<%= art.url_art  %>" type="video/mp4" />
+            </video>
+             </div> 
+         <% }%>
+
+                <div class="container-info-arts container-fluid">
+                    <div class="row mt-1">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                      
+                            </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <span><%= art.title_art %> - <%= art.measurements %> </span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= art.number_likes %> <i class="fas fa-heart"></i></label> 
+                        </div>
+                    </div>
+                    <div class="row ">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                        <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ <%= art.minimum_bid_art %></strong> </label> 
+                              
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                        <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong> $ <%= art.offer_winner %></strong> </label>   
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                    
+                                        <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar periodo de prueba"> <%= art.time_to_finish_auction %> <i class="fas fa-stopwatch"></i></label> 
+                                </div>
+                              
+         </div>
+         <% }else{ %>
+
+                <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="/media/img/icon-venta.png" ></button>
+      
+                <!-- <div class="type-title" data-toggle="tooltip" data-placement="bottom" title="Click Mostrar más info sobre la subasta"><button >SUBASTA</button> </div> -->
+           
+
+               <% if(art.type_art=='image'){ %>
+                <div class="container-fix-art"> 
+                                <img src="/imagesArs/<%= art.url_art %>" class="img-art"  data-jslghtbx>
+                               </div>
+                <% }else{ %>
+                   <div class="container-fix-art">
+                   <video class="video-art " width="100%" height="340" controls >  
+                    <source src="/videosArs/<%= art.url_art  %>" type="video/mp4" />
+                    </video>
+                     </div> 
+                 <% }%>
+
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                              
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span><%= art.title_art %> - <%= art.measurements %> - <%= art.author_art %></span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <%= art.number_likes %> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                    <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ <%= art.sale_price_art %></strong> </label> 
+                                          
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                   
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                
+                                                    <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar periodo de prueba"> <%= art.time_to_finish_direct %> <i class="fas fa-stopwatch"></i></label> 
+                                            </div>
+                                </div>
+
+         <% } %>
+
+        
+                    <form action="/setArtReturnAndStatusReturn/<%= id_auction_sale %> " method="POST">
+                    <div class="row">
+
+           
+                                <div class="col-12 ">
+                                                <div class="form-group">
+
+                                                                        <input  type="hidden" name="idArt" value="<%= art.cod_art %>" >
+                                                                <% if(art.type_sale_art=='direct'){ %>
+                                                                        <input  type="hidden" name="type_sale_art" value="<%= art.type_sale_art %>">
+                                                                        <input  type="hidden" name="id_sale_auction" value="<%= art.id_sale %>">
+                                                               <% }else{ %>
+                                                                        <input  type="hidden" name="type_sale_art" value="<%= art.type_sale_art %>">
+                                                                        <input  type="hidden" name="id_sale_auction" value="<%= art.id_auction %>">
+                                                                <% }%>
+
+                                                         
+                                                           
+                                                                <input  type="hidden" name="title_art" value=" <%= art.title_art %>">
+                                                                <input  type="hidden" name="measurements" value="<%= art.measurements %>">
+                                                                <input  type="hidden" name="idArtistTmp" value="<%= art.cod_ar2 %>">
+                                                              
+                                                                
+                                                                
+
+                                                                <label for="exampleInputEmail1"><strong>Ingrese la url para rastreo de la paqueteria</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares "  name="parcel_au" placeholder="url">
+
+                                                                <label for="exampleInputEmail1"><strong>Ingrese el código de seguimiento</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares "  name="cod_rast_au"  placeholder="código">
+                                                               
+                                                              </div>
+                                 </div>
+
+                            <div class="col-12 p-0">
+                                    <button type="submit" class="btn btn-offert">  Enviar obra </button>
+                            </div>
+                    
+
+                    </div>
+                </form>    
+                </div>
+        </div>
+        <!-- end art img template -->
+
+
+
+
+       <!-- informacion de envió-->
+
+       <div id="info4" class="mt-4" >
+              
+                <div class="container-profile mt-0 pt-0 text-center" >
+                         <div class="container-filters-buyers mb-3">
+                                         <div class="row">
+                                                 <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Infromación de envió del creador</div>
+                                         </div>
+                                   
+                        </div>
+
+                        <div class="row">
+                   
+                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                               
+                                                                 <label for="exampleInputEmail1"><strong>Nombre completo del receptor</strong> </label>
+                                                             
+                                                                 <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el nombre  del receptor" value="<%= artistData.name_receiver %>" readonly >
+                                                     
+                                         </div>
+
+                                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>Calle</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese la calle" value="<%= artistData.street %>" readonly >
+                                            
+                                               </div>
+
+                                               
+                                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>No exterior</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el número exterior" value="<%= artistData.no_ext %>" readonly >
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>No interior</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el número interior" value="<%= artistData.no_int %>" readonly >
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>Código postal</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el código postal" value="<%= artistData.zip_code %>" readonly>
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>Ciudad</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese la ciudad" value="<%= artistData.city %>" readonly>
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>Estado o provincia</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese su estado o provincia" value="<%= artistData.province %>" readonly>
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>País</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese el país" value="<%= artistData.country %>" readonly>
+                                            
+                                               </div>
+                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                               
+                                                        <label for="exampleInputEmail1"><strong>Detalles</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 money" id="exampleInputEmail1"  placeholder="Ingrese detalles adicionales" value="<%= artistData.details %>" readonly>
+                                            
+                                               </div>
+
+                                   
+                                               
+                         </div>
+                       
+                 </div>
+
+
+
+ </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- end list and pagination arts -->
+
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+
+<% include buyers-footer-normal %>

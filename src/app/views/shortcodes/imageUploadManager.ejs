@@ -1,0 +1,297 @@
+  <!-- get categories -->
+
+  <script>
+    $.ajax({
+    url: "getCategories",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(categories){
+     var categories= JSON.stringify(categories);
+      categories=JSON.parse(categories);
+      $('#checkboxesb').empty();
+
+
+
+      for(var a in categories) {
+          $('#checkboxesb').append(
+`<label for="ca_`+categories[a].cod_ca+`">
+<input type="checkbox" id="ca_`+categories[a].cod_ca+`" />`+categories[a].name_ca+`
+</label>
+<script>
+$("#ca_`+categories[a].cod_ca+`").change(function(){
+
+if(this.checked) {
+  addTechniques(`+categories[a].cod_ca+`);
+  addTagCategory(`+categories[a].cod_ca+`);
+  var checkboxes = document.getElementById("checkboxesb2");
+  checkboxes.style.display = "block";
+}
+else{
+$(".tec_of_cat_`+categories[a].cod_ca+`").remove();
+removeTagCategory(`+categories[a].cod_ca+`);
+getTechniquesByCategory(`+categories[a].cod_ca+`);
+}
+});
+</`+`script>`);
+
+      }
+    },
+    error: function(err) {
+
+    }
+});
+</script>
+
+<!-- get technique -->
+<script>
+function addTechniques(idCategory){
+$('#comodin-subcategory').remove();
+  $.ajax({
+  url: "getTechniques",
+  method: 'POST',
+  data:{
+    idCategory:idCategory
+  },
+  beforeSend: function(){
+
+  },
+  success: function(techniques){
+
+   var techniques= JSON.stringify(techniques);
+   techniques=JSON.parse(techniques);
+
+   var codCategory=idCategory;
+    $('#checkboxesb2').append(`<div class="subtheme  tec_of_cat_`+codCategory+`">`+techniques[0].name_ca+`</div>`);
+
+
+    for(var a in techniques) {
+        $('#checkboxesb2').append(
+`<label class="tec_of_cat_`+codCategory+`" for="te_`+techniques[a].cod_te+`">
+<input class="tec_of_cat_`+codCategory+`" type="checkbox" id="te_`+techniques[a].cod_te+`" />`+techniques[a].name_te+`
+</label>
+<script>
+$("#te_`+techniques[a].cod_te+`").change(function(){
+
+if(this.checked) {
+
+  addTagTechnique(`+techniques[a].cod_te+`);
+}
+else{
+  removeTagTechnique(`+techniques[a].cod_te+`);
+}
+});
+</`+`script>`);
+    }
+  },
+  error: function(err) {
+console.log(JSON.stringify(err));
+  }
+});
+}
+</script>
+
+<!-- get thematic -->
+<script>
+
+
+                 $.ajax({
+                 url: "getThematics",
+                 method: 'POST',
+                 data:{
+                   null:null
+                 },
+                 beforeSend: function(){
+
+                 },
+                 success: function(thematics){
+                  $('#checkboxesb3').empty();
+
+                  var thematics= JSON.stringify(thematics);
+                  thematics=JSON.parse(thematics);
+
+
+
+                  var codThematics;
+                   for(var a in thematics) {
+                  codThematics=thematics[a].cod_th;
+                       $('#checkboxesb3').append(
+         `<label  for="the_`+thematics[a].cod_th+`">
+         <input  type="checkbox" id="the_`+codThematics+`" />`+thematics[a].name_th+`
+         </label>
+         <script>
+          $("#the_`+codThematics+`").change(function(){
+
+          if(this.checked) {
+
+                 addTagThematics(`+codThematics+`);
+             }
+             else{
+                 removeTagThematics(`+codThematics+`);
+             }
+          });
+         </`+`script>`);
+                   }
+                 },
+                 error: function(err) {
+           console.log(JSON.stringify(err));
+                 }
+             });
+
+</script>
+
+<!-- add and remove array tags category -->
+<script>
+
+  let tagsCategory=[];
+  function addTagCategory(idCategory){
+      tagsCategory.push(idCategory);
+
+  }
+  function removeTagCategory(idCategory){
+
+      tagsCategory.splice( tagsCategory.indexOf(idCategory), 1 );
+
+  }
+</script>
+
+<!-- add and remove array tags Thematics -->
+<script>
+
+          let tagsThematic=[];
+          function addTagThematics(idThematic){
+                  tagsThematic.push(idThematic);
+          }
+          function removeTagThematics(idThematic){
+
+          tagsThematic.splice( tagsThematic.indexOf(idThematic), 1 );
+
+          }
+</script>
+
+<!-- add array tags technique -->
+<script>
+
+          let tagsTechnique=[];
+          function addTagTechnique(idTechnique){
+              tagsTechnique.push(idTechnique);
+
+          }
+          function removeTagTechnique(idTechnique){
+
+                  tagsTechnique.splice( tagsTechnique.indexOf(idTechnique), 1 );
+
+          }
+
+</script>
+
+<!-- get technique for category and remove techniques if unchecked category -->
+<script>
+function getTechniquesByCategory(idCategory){
+
+  $.ajax({
+  url: "getTechniques",
+  method: 'POST',
+  data:{
+    idCategory:idCategory
+  },
+  beforeSend: function(){
+
+  },
+  success: function(techniques){
+          var techniques= JSON.stringify(techniques);
+   techniques=JSON.parse(techniques);
+
+       for(var a in techniques) {
+
+        removeTagTechniqueForCategory(techniques[a].cod_te);
+       }
+
+  },
+  error: function(err) {
+
+  }
+});
+}
+
+function removeTagTechniqueForCategory(idsTechinque){
+
+  if(tagsCategory.length == []){
+  if ( $("#comodin-subcategory").length == 0 ) {
+          $('#checkboxesb2').append('<div class="subtheme" id="comodin-subcategory">Selecccione una categoria para ver las técnicas</div>');
+  }
+
+}
+if(tagsTechnique.indexOf(idsTechinque)!=-1){
+tagsTechnique.splice( tagsTechnique.indexOf(idsTechinque), 1 );
+}
+
+
+}
+</script>
+
+<!-- form add art photo -->
+
+<script>
+$('#btn-send-add-art-photo').click(function() {
+
+  $('#tagsThematicPhoto').val(tagsThematic.join(","));
+  $('#tagsCategoryPhoto').val(tagsCategory.join(","));
+  $('#tagsTechniquePhoto').val(tagsTechnique.join(","));
+
+
+
+var form = $("#form-add-art-photo")[0];
+var data  = new FormData(form);
+
+$.ajax({
+url: "addArtPicture",
+type: 'POST',
+enctype: 'multipart/form-data',
+async:true,
+data:data,
+contentType: false,
+processData: false,
+cache: false,
+beforeSend: function(){
+$('#section-artist').css({overflow: 'hidden'});
+$('#loader1').show();
+},
+success: function(res){
+$('#section-artist').css({overflow: 'auto'});
+$('#loader1').hide();
+
+
+
+
+
+if(!res.status){
+$('#alert-container-modals div').remove();
+var templateAlert=  `<div class="alert alert-warning alert-dismissible fade show text-center" role="alert"> `+res.msg+`
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>`;
+
+$('div').animate({ scrollTop: 0 }, 0);
+$('#alert-container-modals').append(templateAlert);
+
+
+}else{
+
+  window.location.href='artist';
+
+}
+},
+error: function(err) {
+$('#section-artist').css({overflow: 'auto'});
+$('#loader1').hide();
+}
+});
+
+});
+</script>

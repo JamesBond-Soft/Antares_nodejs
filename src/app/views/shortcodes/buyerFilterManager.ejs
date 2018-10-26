@@ -1,0 +1,678 @@
+<!-- get categories -->
+
+<script>
+
+     let offset=0;
+        $.ajax({
+        url: "getCategories",
+        method: 'POST',
+        data:{
+          null:null
+        },
+        beforeSend: function(){
+    
+        },
+        success: function(categories){
+         var categories= JSON.stringify(categories);
+          categories=JSON.parse(categories);
+          $('#checkboxesb').empty();
+    
+    
+    
+          for(var a in categories) {
+              $('#checkboxesb').append(
+    `<label for="ca_`+categories[a].cod_ca+`">
+    <input type="checkbox" id="ca_`+categories[a].cod_ca+`" />`+categories[a].name_ca+`
+    </label>
+    <script>
+    $("#ca_`+categories[a].cod_ca+`").change(function(){
+    
+    if(this.checked) {
+      addTechniques(`+categories[a].cod_ca+`);
+      addTagCategory(`+categories[a].cod_ca+`);
+      var checkboxes = document.getElementById("checkboxesb2");
+      checkboxes.style.display = "block";
+      offset=0;
+      getDataArtsBuyer(5);
+     $("#containerArtsArtist").empty();
+    }
+    else{
+    $(".tec_of_cat_`+categories[a].cod_ca+`").remove();
+    removeTagCategory(`+categories[a].cod_ca+`);
+    getTechniquesByCategory(`+categories[a].cod_ca+`);
+    offset=0;
+    getDataArtsBuyer(5);
+    $("#containerArtsArtist").empty();
+    }
+
+   
+    });
+    </`+`script>`);
+    
+          }
+        },
+        error: function(err) {
+    
+        }
+    });
+    </script>
+    
+    <!-- get technique -->
+    <script>
+    function addTechniques(idCategory){
+    $('#comodin-subcategory').remove();
+      $.ajax({
+      url: "getTechniques",
+      method: 'POST',
+      data:{
+        idCategory:idCategory
+      },
+      beforeSend: function(){
+    
+      },
+      success: function(techniques){
+    
+       var techniques= JSON.stringify(techniques);
+       techniques=JSON.parse(techniques);
+    
+       var codCategory=idCategory;
+        $('#checkboxesb2').append(`<div class="subtheme  tec_of_cat_`+codCategory+`">`+techniques[0].name_ca+`</div>`);
+    
+    
+        for(var a in techniques) {
+            $('#checkboxesb2').append(
+    `<label class="tec_of_cat_`+codCategory+`" for="te_`+techniques[a].cod_te+`">
+    <input class="tec_of_cat_`+codCategory+`" type="checkbox" id="te_`+techniques[a].cod_te+`" />`+techniques[a].name_te+`
+    </label>
+    <script>
+    $("#te_`+techniques[a].cod_te+`").change(function(){
+    
+    if(this.checked) {
+      offset=0;
+      addTagTechnique(`+techniques[a].cod_te+`);
+      getDataArtsBuyer(5);
+    $("#containerArtsArtist").empty();
+
+    }
+    else{
+      removeTagTechnique(`+techniques[a].cod_te+`);
+      offset=0;
+      getDataArtsBuyer(5);
+    $("#containerArtsArtist").empty();
+    }
+  
+    });
+    </`+`script>`);
+        }
+      },
+      error: function(err) {
+    console.log(JSON.stringify(err));
+      }
+    });
+    }
+    </script>
+    
+    <!-- get thematic -->
+    <script>
+    
+    
+                     $.ajax({
+                     url: "getThematics",
+                     method: 'POST',
+                     data:{
+                       null:null
+                     },
+                     beforeSend: function(){
+    
+                     },
+                     success: function(thematics){
+                      $('#checkboxesb3').empty();
+    
+                      var thematics= JSON.stringify(thematics);
+                      thematics=JSON.parse(thematics);
+    
+    
+    
+                      var codThematics;
+                       for(var a in thematics) {
+                      codThematics=thematics[a].cod_th;
+                           $('#checkboxesb3').append(
+             `<label  for="the_`+thematics[a].cod_th+`">
+             <input  type="checkbox" id="the_`+codThematics+`" />`+thematics[a].name_th+`
+             </label>
+             <script>
+              $("#the_`+codThematics+`").change(function(){
+    
+              if(this.checked) {
+                offset=0;
+                     addTagThematics(`+codThematics+`);
+                     getDataArtsBuyer(5);
+                 $("#containerArtsArtist").empty();
+                 }
+                 else{
+                  offset=0;
+                     removeTagThematics(`+codThematics+`);
+                     getDataArtsBuyer(5);
+                 $("#containerArtsArtist").empty();
+                 }
+               
+              });
+             </`+`script>`);
+                       }
+                     },
+                     error: function(err) {
+               console.log(JSON.stringify(err));
+                     }
+                 });
+    
+    </script>
+    
+    <!-- add and remove array tags category -->
+    <script>
+    
+      let tagsCategory=[];
+      function addTagCategory(idCategory){
+          tagsCategory.push(idCategory);
+    
+      }
+      function removeTagCategory(idCategory){
+    
+          tagsCategory.splice( tagsCategory.indexOf(idCategory), 1 );
+    
+      }
+    </script>
+    
+    <!-- add and remove array tags Thematics -->
+    <script>
+    
+              let tagsThematic=[];
+              function addTagThematics(idThematic){
+                      tagsThematic.push(idThematic);
+              }
+              function removeTagThematics(idThematic){
+    
+              tagsThematic.splice( tagsThematic.indexOf(idThematic), 1 );
+    
+              }
+    </script>
+    
+    <!-- add array tags technique -->
+    <script>
+    
+              let tagsTechnique=[];
+              function addTagTechnique(idTechnique){
+                  tagsTechnique.push(idTechnique);
+    
+              }
+              function removeTagTechnique(idTechnique){
+    
+                      tagsTechnique.splice( tagsTechnique.indexOf(idTechnique), 1 );
+    
+              }
+    
+    </script>
+    
+    <!-- get technique for category and remove techniques if unchecked category -->
+    <script>
+    function getTechniquesByCategory(idCategory){
+    
+      $.ajax({
+      url: "getTechniques",
+      method: 'POST',
+      data:{
+        idCategory:idCategory
+      },
+      beforeSend: function(){
+    
+      },
+      success: function(techniques){
+              var techniques= JSON.stringify(techniques);
+       techniques=JSON.parse(techniques);
+    
+           for(var a in techniques) {
+    
+            removeTagTechniqueForCategory(techniques[a].cod_te);
+           }
+    
+      },
+      error: function(err) {
+    
+      }
+    });
+    }
+    
+    function removeTagTechniqueForCategory(idsTechinque){
+    
+      if(tagsCategory.length == []){
+      if ( $("#comodin-subcategory").length == 0 ) {
+              $('#checkboxesb2').append('<div class="subtheme" id="comodin-subcategory">Selecccione una categoria para ver las técnicas</div>');
+      }
+    
+    }
+    if(tagsTechnique.indexOf(idsTechinque)!=-1){
+    tagsTechnique.splice( tagsTechnique.indexOf(idsTechinque), 1 );
+    }
+    
+    
+    }
+    </script>
+    
+    <!-- form add art photo -->
+    
+    <script>
+
+var flagScroll=false;
+   
+let containerArts=$("#containerArtsArtist");
+
+$(window).scroll(function(){
+if(flagScroll){
+        if(( parseInt($(window).scrollTop()) == $(document).height() - $(window).height()) ){
+         
+          getDataArtsBuyer(1);
+          
+        }
+}
+});
+
+getDataArtsBuyer(6);
+
+    function getDataArtsBuyer(limit){
+        
+        flagScroll=false;
+      $('#load-more-arts').show();
+    var  tagsThematicSend= tagsThematic.join(",");
+    var  tagsCategorySend= tagsCategory.join(",");
+    var  tagsTechniqueSend= tagsTechnique.join(",");
+
+      
+      $.ajax({
+    url: "getArtsBuyer",
+    method: 'POST',
+    dataType:'JSON',
+    data:{tagsThematic:tagsThematicSend, tagsCategory:tagsCategorySend,tagsTechnique:tagsTechniqueSend,offset:offset, limit:limit},
+    beforeSend: function(){
+        flagScroll=false;
+    },
+success: function(response){
+        flagScroll=false;
+    
+    for(var i=0; i<response.length; i++){
+      offset++;
+      let item = response[i];
+      let html = ``;
+      let htmlToScript = ``;
+    let giveLike = ``;
+    let titleLike = ``;
+if(item.iam_like=='NOLIKE'){
+   giveLike = `unlike`;
+   titleLike = `Dar me gusta`;
+}else{
+   giveLike = `like`;
+   titleLike = `Quitar me gusta`;
+}
+              if(item.type_art=='image'){
+
+                //auction
+                if(item.type_sale_art=='auction'){
+                  html=`<div class="container-art mt-4" >
+                <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                <a id="`+item.cod_art+`_title_like" class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like" class="fas fa-heart `+giveLike+`"></i></a>
+            
+                <div class="container-fix-art"> 
+                <img src="imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+               </div>
+                
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                              
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` - <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.author_art+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos" > <span id="`+item.cod_art+`_number_like"> `+item.number_likes+` </span> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ `+item.minimum_bid_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+` </strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                        <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Oferta actual"> Oferta actual:  <strong> $ `+item.offer_actuall.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>   
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                    
+                                                <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar"> `+item.time_to_finish+` <i class="fas fa-stopwatch"></i></label> 
+                                        </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-12 p-0">
+                                            <a href="buyers-bid/`+item.cod_art+`" class="btn btn-offert">Ofertar</a>
+                                    </div>
+                            </div>
+                
+                        </div>
+                </div>
+`;
+
+htmlToScript = `   
+<script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script>`;
+                 //direct sale
+                }else{
+if(item.status_step_art=='idle'){
+ html=`<div class="container-art mt-4">
+                <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                <a id="`+item.cod_art+`_title_like" class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like" class="fas fa-heart `+giveLike+`"></i></a>
+                <div class="container-fix-art"> 
+               
+              <img src="imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+        </div>
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                         
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` -  <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.author_art+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <span id="`+item.cod_art+`_number_like">`+item.number_likes+`</span> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                               
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                            
+                                                <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar"> `+item.time_to_finish+`  <i class="fas fa-stopwatch"></i></label> 
+                                        </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-12 p-0">
+                                            <a href="payArtDirect/`+item.cod_art+`" class="btn btn-buy">Comprar</a>
+                                    </div>
+                            </div>
+                
+                        </div>
+                </div>`;
+
+                htmlToScript = `   
+<script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script>`;
+}
+                }
+            }else if(item.type_art=='video'){
+                         //auction
+                         if(item.type_sale_art=='auction'){
+  html=`<div class="container-art mt-4">
+                <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                <a id="`+item.cod_art+`_title_like" class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like" class="fas fa-heart `+giveLike+`"></i></a>
+            
+                <div class="container-fix-art"> 
+                <video class="video-art" width="100%" height="340" controls>
+                        <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                          
+                    </video>
+               </div>
+                
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                              
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` - <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.author_art+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <span id="`+item.cod_art+`_number_like">`+item.number_likes+`</span> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ `+item.minimum_bid_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+` </strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                        <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Oferta actual"> Oferta actual:  <strong> $ `+item.offer_actuall.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>   
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                            
+                                                <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar"> `+item.time_to_finish+` <i class="fas fa-stopwatch"></i></label> 
+                                        </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-12 p-0">
+                                            <a href="buyers-bid/`+item.cod_art+`" class="btn btn-offert">Ofertar</a>
+                                    </div>
+                            </div>
+                
+                        </div>
+                </div>`;
+                htmlToScript = `   
+<script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script>`;
+
+                 //direct sale
+                }else{
+if(item.status_step_art=='idle'){
+        
+ html=`<div class="container-art mt-4">
+                <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                <a id="`+item.cod_art+`_title_like"  class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like"  class="fas fa-heart `+giveLike+`"></i></a>
+                <div class="container-fix-art"> 
+               
+                    <div class="container-fix-art"> 
+                <video class="video-art" width="100%" height="340" controls>
+                        <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                          
+                    </video>
+               </div>
+        </div>
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                         
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` -  <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.author_art+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <span id="`+item.cod_art+`_number_like">`+item.number_likes+`</span>  <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                               
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                            
+                                                <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar"> `+item.time_to_finish+`  <i class="fas fa-stopwatch"></i></label> 
+                                        </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-12 p-0">
+                                        <a href="payArtDirect/`+item.cod_art+`" class="btn btn-buy">Comprar</a>
+                                    </div>
+                            </div>
+                
+                        </div>
+                </div>`;
+                htmlToScript = `   
+<script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script>`;
+                            }                }
+
+            }
+
+  $(html).appendTo(containerArts).hide().fadeIn(500);
+  $(containerArts).append(htmlToScript);
+  $('#load-more-arts').hide();
+
+    }
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+var lightbox = new Lightbox();
+lightbox.load();
+flagScroll=true;
+if(response.length<=0){
+flagScroll=false;
+        $('#load-more-arts').hide();
+}
+},
+error: function(err) {
+console.log(JSON.stringify(err));
+ }
+});
+
+}
+
+function unlikeArt(idArt){
+  $.ajax({
+    url: "unlikeArt",
+    method: 'POST',
+    dataType:'JSON',
+    data:{idArt:idArt},
+    beforeSend: function(){
+      
+    },
+success: function(response){
+
+},
+error: function(err) {
+console.log(JSON.stringify(err));
+ }
+});
+}
+
+function likeArt(idArt){
+  $.ajax({
+    url: "likeArt",
+    method: 'POST',
+    dataType:'JSON',
+    data:{idArt:idArt},
+    beforeSend: function(){
+      
+    },
+success: function(response){
+
+},
+error: function(err) {
+console.log(JSON.stringify(err));
+ }
+});
+}
+    </script>
+    

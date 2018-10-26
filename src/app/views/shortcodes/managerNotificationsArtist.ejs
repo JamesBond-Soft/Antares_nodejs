@@ -1,0 +1,189 @@
+<script>
+
+$( document ).ready(function() {
+  var containerNotificationsArtist=$("#container-notifi-artist");
+  var numberNotificationsArtist= $("#number-notifications-artist");
+  var numberNotificationsArtistMobile= $("#number-notifications-artist-mobile");
+  
+    showNotifiTop();
+    showCountNotifiTop();
+        
+    setInterval(showNotifiTop, 4000);
+   setInterval(showCountNotifiTop, 4000);
+
+var countNotificationsTmp=0;
+var flagPush=false;
+        
+function showNotifiTop(){
+    $.ajax({
+    url: "/getNotificationsArtist",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+
+if(data.length > 0){
+    console.log("este es el cod njeuvo: antes de verificar: "+data[0].cod_no);
+    console.log("este es el cod temproal: antes de verificar: "+countNotificationsTmp);
+if(data[0].cod_no>countNotificationsTmp && flagPush ){
+    countNotificationsTmp=data[0].cod_no;
+    showPushNotification(data[0]);
+}
+
+    countNotificationsTmp=data[0].cod_no;
+    flagPush=true;
+
+
+}
+//alert(JSON.stringify(data));
+
+notificationsHtml=``;
+      for(var a in data) {
+
+    var  item=data[a];
+    var imageNotifi=``;
+    var classNotifi=``;
+     if(item.img_notification == 'media/img/avatar-default.png'){ 
+        imageNotifi= `<img class="avatar-likes" src="/media/img/avatar-default.png"  />`;                        
+    }else if(item.img_notification.indexOf("http")!=-1){ 
+        imageNotifi= `<img class="avatar-likes" src="`+item.img_notification+`"  />`; 
+    }else{ 
+        imageNotifi= `<img class="avatar-likes" src="/imagesUsers/`+item.img_notification+`"  />`; 
+    } 
+
+    if(item.read=="false"){
+        var classNotifi=`notifi-unread`;
+    }else{
+        var classNotifi=`notifi-read`;
+    }
+    
+    notificationsHtml+=`
+<a  class="btn `+classNotifi+`"  data-toggle="tooltip" data-placement="bottom" title="Clic para más detalles">
+<div id="notify_`+item.cod_no+`" class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2  ">
+                `+imageNotifi+`
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10  ">
+               <div class="row">
+                   <div class="col text-left pl-2 list-title">  <strong>  `+item.title_no+`</strong></div>
+               </div>
+               <div class="row ">
+                    <div class="col text-left pl-2 list-subtitle"> `+item.description_no+`</div>
+               </div>
+         </div>
+</div>
+</a>
+<script>
+    $("#notify_`+item.cod_no+`").click(function(){
+        setReadNotificationArtist(`+item.cod_no+`,"`+item.read+`","`+item.url_no+`","`+item.description_no+`");
+    });
+</`+`script>`;
+      }
+
+containerNotificationsArtist.html(notificationsHtml);
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+function showCountNotifiTop(){
+    $.ajax({
+    url: "/getNotificationsArtistCount",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+
+
+if(data[0].number_notifi<=0){
+    numberNotificationsArtistMobile.hide();
+    numberNotificationsArtist.hide();
+}else{
+    numberNotificationsArtistMobile.show();
+    numberNotificationsArtist.show();
+numberNotificationsArtistMobile.text(data[0].number_notifi);
+numberNotificationsArtist.text(data[0].number_notifi);
+}
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+
+
+});
+
+function setReadNotificationArtist(notifiId,readORNot,link,description){
+    $.ajax({
+    url: "/setReadNotificationArtist",
+    method: 'POST',
+    data:{
+        notifiId:notifiId,
+        readORNot:readORNot,
+        link:link,
+        description:description
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+     window.location.href = "/"+link;
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+
+function showPushNotification(item){
+    var a = new Audio('/media/audio/short-notice.mp3');
+      a.loop = false;
+    a.play();
+    
+var imageNotifi2=``;
+
+   if(item.img_notification == 'media/img/avatar-default.png'){ 
+      imageNotifi2= `/media/img/avatar-default.png`;                        
+  }else if(item.img_notification.indexOf("http")!=-1){ 
+      imageNotifi2=item.img_notification; 
+  }else{ 
+      imageNotifi2= `/imagesUsers/`+item.img_notification; 
+  } 
+
+  Push.create(
+      item.title_no, {
+  body: item.description_no,
+  icon: imageNotifi2,
+  timeout: 20000,
+  onClick: function () {
+      window.focus();
+      this.close();
+  
+      setReadNotificationArtist(item.cod_no,item.read,item.url_no,item.description_no);
+  }
+});
+}
+</script>

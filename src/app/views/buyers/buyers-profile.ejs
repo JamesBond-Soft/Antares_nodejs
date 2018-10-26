@@ -1,0 +1,328 @@
+<% include buyers-header %>
+
+<section class="container" style="min-height:85%;">
+
+<div class="row">
+
+    <!-- aside -->
+   <div class="col-xs-4 col-sm-4">
+
+            
+                <div class="list-group-antares">
+                        
+                                <button id="btnI1" type="button" class="list-group-item list-group-item-action " >Información personal</button>
+                                <button id="btnI2" type="button" class="list-group-item list-group-item-action"  >Cuentas pagos y transferencias</button>
+                                <button id="btnI3" type="button" class="list-group-item list-group-item-action" >Cambiar contraseña</button>
+                                <button id="btnI4" type="button" class="list-group-item list-group-item-action" >Información de envió </button>
+                             
+                  </div>
+                <br>
+   </div>
+
+
+
+    <!-- arts -->
+ <div class=" col-xs-8 col-sm-8    ">
+
+        <!-- informacion personal -->
+        <% include ../shortcodes/alerts %>
+<form action="updateInfoPersonalBuyer" method="post"  enctype="multipart/form-data">
+        <div id="info1" class="">
+                       
+
+                        
+                       <div class="container-profile mt-0 pt-0 text-center" >
+                                <div class="container-filters-buyers mb-3">
+                                                <div class="row">
+                                                          
+                                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Información personal</div>
+                                                </div>
+                                          
+                               </div>
+
+                               <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                                        <label for="imgInp2">
+                                                                <% if(data.image_ar == 'media/img/avatar-default.png'){ %>
+                                                                       <img id="blah2" class="avatar-defaul-profile" src="media/img/avatar-default.png"  />
+                                                                       <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                                                        <img id="blah2" class="avatar-defaul-profile" src="<%= data.image_ar %>" /> 
+                                                                  <% }else{ %>
+                                                                        <img id="blah2" class="avatar-defaul-profile" src="<%= 'imagesUsers/'+data.image_ar %>" /> 
+                                                                 <% } %>
+                                                          </label>
+                                                        
+                                        <input type='file' id="imgInp2" style="display:none" name="image_ar" />
+                                        <input type="hidden" name="image_ar_tmp" value="<%= data.image_ar %>">
+                                        <br>
+                                        <small>Clic sobre el ovalo para cambiar imagen</small>
+                               
+
+
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                      
+                                                                        <label for="exampleInputEmail1"><strong>Nombre de usuario</strong> </label> 
+                                                                        <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese el nombre de usuario(publico)" value="<%= data.name_ar %>" name="name_ar">
+                                                            
+                                                </div>
+
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                               
+                                                                                <label for="exampleInputEmail1"><strong>Email</strong> </label>
+                                                                                <input  type="text" class="form-control text-center  input-antares2"   placeholder="Ingrese el email" value="<%= data.email_ar %>" name="email_ar">
+                                                              
+                                                        </div>
+
+                                                      
+                                </div>
+                                <br>
+                                <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Guardar</button>
+                        </div>
+
+
+
+        </div>
+</form>
+
+        <!-- cuentas pagos y transferencias -->
+        <form action="updateInfoPaymentsBuyer" method="post"  >  
+        <div id="info2" class="hidden-tab">
+                      
+                        <div class="container-profile mt-0 pt-0 text-center" >
+                                 <div class="container-filters-buyers mb-3">
+                                                 <div class="row">
+                                                         <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Cuentas Pagos y Transferencias</div>
+                                                 </div>
+                                           
+                                </div>
+ 
+                                <div class="row">
+
+                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                       
+                                                                         <label for="exampleInputEmail1"><strong><i class="fab fa-paypal"></i> Cuenta PayPal</strong> </label>
+                                                                         <input  type="text" class="form-control text-center  input-antares2"   placeholder="Ingrese su cuenta PayPal" value="<%=data.paypal_account_ar%>" name="paypal_account_ar" >
+                                                             
+                                                 </div>
+ 
+                                                       
+                                 </div>
+<br>
+                                 <div class="container-filters-buyers mb-3">
+                                                <div class="row">
+                                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Cuenta Bancaria</div>
+                                                </div>
+                                          
+                               </div>
+                               <div class="row">
+<% var dataAccount=[]; if(data.bank_account_ar!='' && data.bank_account_ar!=' ' && data.bank_account_ar!=undefined){ dataAccount.push(JSON.parse(data.bank_account_ar))};%>
+
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                        <label for="exampleInputEmail1"><strong> Nombre de beneficiario:</strong> </label>
+                                                        <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese el nombre del beneficiario" name="bank_beneficiary" value="<%if(dataAccount.length>0){%><%=dataAccount[0].bank_beneficiary%><%}%>">
+                                                      
+                                                                        <label for="exampleInputEmail1"><strong> Clabe:</strong> </label>  
+                                                                        <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese su clabe" name="bank_clabe" value="<%if(dataAccount.length>0){%><%=dataAccount[0].bank_clabe%><%}%>">
+
+                                                                        <label for="exampleInputEmail1"><strong><i class="fas fa-university"></i> Nombre de institucion bancaria:</strong> </label>
+                                                                        <input  type="text" class="form-control text-center  input-antares2 "   placeholder="Ingrese el nombre del banco" name="bank_name" value="<%if(dataAccount.length>0){%><%=dataAccount[0].bank_name%><%}%>">
+
+
+                                                                   
+                                                                      
+                                                                        
+                                                            
+                                                </div>
+
+                                                
+                                </div>
+                                <br>
+                                <div class="container-filters-buyers mb-3">
+                                                <div class="row">
+                                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Método de pago preferido</div>
+                                                </div>
+                                          
+                               </div>
+
+                                <div class="row">
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">Paypal <br> <input type="radio" name="method" value="paypal" <% if(data.payment_method_ar=='paypal'){%> checked <%} %> /> </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> Transferencia bancaria  <br><input type="radio" name="method" value="bank" <% if(data.payment_method_ar=='bank'){%> checked <%} %> /> </div>
+                                </div>
+
+
+                                 <br>
+                                 <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Guardar</button>
+                         </div>
+ 
+ 
+ 
+         </div>
+        </form>
+
+         <!-- cambiar contraseña -->
+
+         
+
+        <div id="info3" class="hidden-tab">
+                      
+                        <div class="container-profile mt-0 pt-0 text-center" >
+                                 <div class="container-filters-buyers mb-3">
+                                                 <div class="row">
+                                                         <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Cambiar Contraseña</div>
+                                                 </div>
+                                           
+                                </div>
+ 
+                                <div class="row">
+                           
+                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                       
+                                                                         <label for="exampleInputEmail1"><strong>Contraseña actual</strong> </label>
+                                                                         <input  type="password" class="form-control text-center  input-antares2 money"   placeholder="Ingrese la contraseña actual" >
+                                                             
+                                                 </div>
+ 
+                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                
+                                                                               
+                                                                         <label for="exampleInputEmail1"><strong>Nueva contraseña </strong> </label>
+                                                                         <input  type="password" class="form-control text-center  input-antares2 money"   placeholder="Ingrese la nueva contraseña" >
+                                                               
+                                                   </div>
+
+                                                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                
+                                                                               
+                                                                <label for="exampleInputEmail1"><strong>Repetir nueva contraseña </strong> </label>
+                                                                <input  type="password" class="form-control text-center  input-antares2 money"   placeholder="Repita la nueva contraseña" >
+                                                      
+                                                     </div>
+ 
+                                                       
+                                 </div>
+                                 <br>
+                                 <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Cambiar contraseña</button>
+                         </div>
+ 
+ 
+ 
+         </div>
+
+  <% var dataShipment=[]; if(data.address_ar!='' && data.address_ar!=' ' && data.address_ar!=undefined){ dataShipment.push(JSON.parse(data.address_ar))};%>
+               <!-- informacion de envió-->
+               <form action="updateInfoShipmentBuyer" method="post" > 
+        <div id="info4" class="hidden-tab">
+                      
+                        <div class="container-profile mt-0 pt-0 text-center" >
+                                 <div class="container-filters-buyers mb-3">
+                                                 <div class="row">
+                                                         <div id="filter-head-down" class="col-xs-12 text-center filter-head mr-0 ml-0">Infromación de envió (necesaria para poder enviar las obras)</div>
+                                                 </div>
+                                           
+                                </div>
+ 
+                                <div class="row">
+                           
+                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                       
+                                                                         <label for="exampleInputEmail1"><strong>Nombre completo del receptor</strong> </label>
+                                                                         <input  type="text" class="form-control text-center  input-antares2 " name="name_receiver"   placeholder="Ingrese el nombre completo del receptor"  value="<%try{%><%=dataShipment[0].name_receiver%><%}catch(err){}%>" >
+                                                             
+                                                 </div>
+
+                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Calle</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="street"   placeholder="Ingrese la calle" value="<%try{%><%=dataShipment[0].street%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+
+                                                       
+                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>No exterior</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="no_ext"   placeholder="Ingrese el número exterior"  value="<%try{%><%=dataShipment[0].no_ext%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>No interior</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="no_int"   placeholder="Ingrese el número interior" value="<%try{%><%=dataShipment[0].no_int%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Código postal</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="zip_code"   placeholder="Ingrese el código postal" value="<%try{%><%=dataShipment[0].zip_code%><%}catch(err){}%>"  >
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Ciudad</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="city"   placeholder="Ingrese la ciudad" value="<%try{%><%=dataShipment[0].city%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Estado o provincia</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="province"   placeholder="Ingrese su estado o provincia" value="<%try{%><%=dataShipment[0].province%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>País</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="country"   placeholder="Ingrese el país" value="<%try{%><%=dataShipment[0].country%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Municipio o delegación</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="delegation"   placeholder="Ingrese el municipio o delegación" value="<%try{%><%=dataShipment[0].delegation%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Teléfono de contacto</strong> </label>
+                                                                <input  type="tel" class="form-control text-center  input-antares2 " name="phone"   placeholder="Ingrese un teléfono de contacto" value="<%try{%><%=dataShipment[0].phone%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+                                                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                       
+                                                                <label for="exampleInputEmail1"><strong>Detalles</strong> </label>
+                                                                <input  type="text" class="form-control text-center  input-antares2 " name="details"   placeholder="Ingrese detalles adicionales"  value="<%try{%><%=dataShipment[0].details%><%}catch(err){}%>"  >
+                                                    
+                                                       </div>
+ 
+                                           
+                                                       
+                                 </div>
+                                 <br>
+                                 <button type="submit" class="btn-login btn  btn-large  btn-block w-50 " style="display:inline-block">Guardar</button>
+                         </div>
+ 
+ 
+ 
+         </div>
+        </form>
+
+                 
+    
+       
+
+
+
+ </div>
+
+    <!-- end arts -->
+
+
+
+  
+
+
+</div>
+
+</section>
+<% include buyers-footer %>

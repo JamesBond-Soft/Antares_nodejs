@@ -1,0 +1,143 @@
+
+    <!-- aside -->
+    <div class="col-xs-12 col-sm-12   col-md-4 push-md-8  col-lg-4 ">
+
+
+
+        <div class="container-custom-tarjet d-none d-lg-block">
+    
+           
+       
+    
+            <div class="row text-center">
+                <div class="col-xs-2 col-sm-2 col-md-2  ">
+                                <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                        <img   class="avatar-artist" src="/media/img/avatar-default.png"  />
+                                  <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                        <img  class="avatar-artist" src="<%= user.image_ar %>" /> 
+                                  <% }else{ %>
+                                         <img  class="avatar-artist" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                  <% } %>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 d-flex align-items-center ">
+                        <p class="name-artist"><%= user.name_ar  %>  </p>
+             
+                     
+                 </div>
+                
+            </div>
+    
+            <div class="row text-center mb-1">
+                <div id="container_rating_artist" class="col-12 container-stars">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                </div>
+            </div>
+            <div class="row text-center row-transfers">
+                    <div class="col-12">
+                          Transferencias pendientes
+                    </div>
+                    <div id="transfers_pending_value_artist" class="col-12 font-weight-bold">
+                           $ 0 MXN
+                     </div>
+                    
+            </div>
+        
+            <div class="row text-center mt-2">
+                <div class="col-4  ">
+                    <button class="btn btn-items"> <span class="span-result" id="follows_value_artist"> 0 </span><br><span class="span-subtitle"> seguidores </span></button>
+                  
+                </div>
+                <div class="col-4">
+                        <button class="btn btn-items"> <span class="span-result" id="in_sold_artist"> 0 </span><br><span class="span-subtitle"> En venta </span></button>
+                    </div>
+                    <div class="col-4">
+                            <button class="btn btn-items"> <span class="span-result" id="in_auction_artist"> 0 </span><br><span class="span-subtitle"> En subasta </span></button>
+                        </div>
+            </div>
+
+        </div>
+
+
+        <!-- second card -->
+        <div class="container-custom-tarjet mt-3 p-4  d-none d-none d-md-block d-lg-none d-none d-lg-block d-xl-none d-none d-xl-block">
+            <div class="row">
+                <div class="col-12 ">
+             
+                <h1 class="divi-title">   Actividad</h1>
+                </div>
+                <div class="col-12 ">
+                         <a href="/artist-arts-bought"><span class="span-title">Obras Vendidas: </span>  <span class="span-subtitle" id="number_sold_artist"></span></a>
+                    </div>
+                    <!-- <div class="col-12">
+                            <span class="span-title">Ofertas Ventas: </span>  <span class="span-subtitle">2</span>
+                        </div> -->
+
+
+                            <div class="col-12">
+                                    <a href="/artist-arts-shipping-free-list"> <span class="span-title">Pendientes para Envió: </span>  <span class="span-subtitle" id="number_pending_send_artist" >0</span></a>     
+                            </div>
+                         
+                            <div class="col-12">
+                                    <a href="/artist-arts-in-test-by-buyer"> <span class="span-title">En Prueba Por Comprador: </span>  <span class="span-subtitle" id="number_test_by_buyer_artist">0</span></a>     
+                            </div>
+                            <div class="col-12">
+                                <a href="/artist-sent-works"> <span class="span-title">Obras enviadas a comprador: </span>  <span class="span-subtitle" id="number_send_buyer_artist">0</span></a>     
+                            </div>
+                            <div class="col-12">
+                                    <a href="/artist-pending-auctions"> <span class="span-title">Subastas terminadas: </span>  <span class="span-subtitle"  id="number_pending_paid_buyer_artist">0</span></a>     
+                            </div>
+                            <div class="col-12">
+                                    <a href="/artist-returned-works"> <span class="span-title">Obras regresadas: </span>  <span class="span-subtitle" id="number_arts_returned_artist">0</span></a>     
+                            </div>
+  
+            </div>
+
+
+
+                
+            <div class="row mt-4">
+                    <div class="col-12 ">
+                 
+                    <h1 class="divi-title">  Más populares</h1>
+
+                  
+                    </div>
+
+                    <div id="containerArtsLikes" class="col-12 ">
+                 
+                       
+    
+                          
+                      </div>
+
+                    <div id="containerArtsLikesLink" class="col-12 text-center mt-2">
+
+                        
+                    </div>
+                   
+                </div>
+
+                <div class="row mt-4">
+                        <div class="col-12 ">
+                     
+                        <h1 class="divi-title">  Banner 1</h1>
+                        </div>
+                       
+                        <div class="col-12 ">
+                     
+                                <img class="banner-1" src="/media/img/banner1.jpg" alt="">
+
+</div>
+                    </div>
+
+
+
+        </div>        
+</div>
+
+        <!-- en aside -->
+

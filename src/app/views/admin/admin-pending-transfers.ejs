@@ -1,0 +1,140 @@
+<% include admin-header %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header ml-5">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Transferencias/Pagos pendientes</h1>
+          </div><!-- /.col -->
+       
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid p-5 ">
+
+       <div class="row ">
+
+          <div class="col-sm-6"><div id="example1_length" class="dataTables_length"><label><select size="1" name="example1_length" aria-controls="example1"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> Registros por pagina</label></div></div>
+
+          
+          <div class="col-sm-6 text-right mb-2"> Buscar: <input type="text" name="" id=""> </div>
+          <div class="col-sm-12 " >
+
+              <div class="table-responsive "> 
+              <table class="table" >
+                  <thead class="bg-antares">
+                    <tr class=" text-center">
+
+                      <th scope="col">#</th>
+                      <th scope="col">Imagen</th>
+                      <th scope="col">Nombre</th>
+                      
+                      <th scope="col">Concepto</th> 
+                      <th scope="col">Monto </th> 
+
+                      <th scope="col">Tipo de cuenta</th> 
+                      <th scope="col">Tipo de pago elejido</th> 
+                      <th scope="col">Cuenta PayPal</th> 
+                      <th scope="col">Cuenta Bancaria</th> 
+                      <th scope="col">Pagar con Paypal</th> 
+                      <th scope="col">Marcar como pagado</th> 
+              
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>    <img  class="avatar-artist" src="media/img/avatar-default.png" alt=""></td>
+                      <td>Brad Disel</td>
+                    
+                      <td>ventas y subastas</td>
+                      <td> $12000.00 mxn</td>
+
+                      <td> Creador</td>
+                      <td class="text-center"><i class="fab fa-cc-paypal" style="font-size:40px; width: 150px;"></i></td>
+                      <td> brad_disel@gmail.com</td>
+                      <td> <p> Banco: Santander, clabe: 54564654645456645, Nombre Beneficiario: Brad Disel </p> </td>
+                      <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Pagar con Paypal">Pagar</button> </td>
+                      <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Marcar como pagado con transferencia bancaria">Pagar</button> </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>    <img  class="avatar-artist" src="media/img/avatar-default.png" alt=""></td>
+                        <td>Brad Disel2</td>
+                       
+                        <td>ventas y subastas</td>
+                        <td> $13000.00 mxn</td>
+  
+                        <td> Creador</td>
+                        <td class="text-center"><i class="fas fa-university" style="font-size:40px; width: 150px;"></i></td>
+                        <td> brad_disel@gmail.com</td>
+                        <td> <p> Banco: Santander, clabe: 54564654645456645, Nombre Beneficiario: Brad Disel </p> </td>
+                        <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Pagar con Paypal">Pagar</button> </td>
+                        <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Marcar como pagado con transferencia bancaria">Pagar</button> </td>
+                      </tr>
+
+                      <tr>
+                          <th scope="row">1</th>
+                          <td>    <img  class="avatar-artist" src="media/img/avatar-default.png" alt=""></td>
+                          <td>Brad Disel2</td>
+                        
+                          <td>devolución de obra amanecer -120 x 150 - armando</td>
+                          <td> $13000.00 mxn</td>
+    
+                          <td> Comprador</td>
+                          <td class="text-center"><i class="fas fa-university" style="font-size:40px; width: 150px;"></i></td>
+                          <td> brad_disel@gmail.com</td>
+                          <td> <p> Banco: Santander, clabe: 54564654645456645, Nombre Beneficiario: Brad Disel </p> </td>
+                          <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Pagar con Paypal">Pagar</button> </td>
+                          <td> <button class="btn bg-green" data-toggle="tooltip" data-placement="bottom" title="Marcar como pagado con transferencia bancaria">Pagar</button> </td>
+                        </tr>
+  
+
+             
+
+
+                      
+                  </tbody>
+                </table>
+              </div>
+          </div>
+          <div class="col-sm-12">
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+          </div>
+       </div>
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <% include admin-footer %>

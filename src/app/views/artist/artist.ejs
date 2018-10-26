@@ -1,0 +1,336 @@
+<% include artist-header %>
+
+<% include ../shortcodes/loader %>
+
+<section class="container" id="section-artist">
+
+<div class="row">
+                <% include artist-aside %>
+          
+
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+
+                <% include ../shortcodes/alerts %>
+   
+
+     <div class="container-upload-artist">
+        <button class="btn-upload-photo-artist"  data-toggle="modal" data-target=".add-photo-modal"><img src="media/img/subir-foto-icon-antares.png" width="45" height="40" data-toggle="tooltip" data-placement="bottom" title="Agregar foto"></button>
+        <button class="btn-ulpad-video-artist" data-toggle="modal" data-target=".add-video-modal" ><img src="media/img/subir-video-icon-antares.png" width="45" height="40" data-toggle="tooltip" data-placement="bottom" title="Agregar video"> </button>
+        
+     </div>
+
+<!-- list and pagination arts -->
+
+<div id="containerArtsArtist">
+
+    
+</div>
+<div class="w-100 p-5 mt-2 text-center" id="load-more-arts">
+                <img src="media/img/load-more.gif" style="width:50px; height:50px; display: inline-block;">
+                </div>
+       
+
+<!-- end list and pagination arts -->
+
+<!-- <div class=" row mt-5 ">
+        <div class="col-sm-12 d-flex justify-content-center">
+    
+                <nav class="nav-pagination">
+                        <ul class="pagination">
+                          <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item"><a class="page-link" href="#">4</a></li>
+                          <li class="page-item"><a class="page-link" href="#">5</a></li>
+                          <li class="page-item"><a class="page-link" href="#">6</a></li>
+                          <li class="page-item"><a class="page-link" href="#">7</a></li>
+                          <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                      </nav>
+        </div>
+    </div> -->
+ </div>
+
+    <!-- end arts -->
+</div>
+
+</section>
+
+
+<!-- get all arts  -->
+
+<script>
+let offset=0;
+let containerArts=$("#containerArtsArtist");
+var flagScroll=false;
+// window.onscroll =()=>{
+//         if(document.body.scrollTop > 90 || document.documentElement.scrollTop > 90){
+//                 //console.log('abajo');
+//                 loadArtsArtist(1);
+//         }else{
+//                 //console.log('arriva');
+//         }
+// }
+
+$(window).scroll(function(){
+        
+if(flagScroll){
+        console.log("scrollTop");
+        console.log($(window).scrollTop() );
+        console.log("docvument heioght");
+        console.log( $(document).height());
+        console.log("windows heigth");
+        console.log( $(window).height());
+
+        if((parseInt($(window).scrollTop()) == $(document).height() - $(window).height()) ){
+                       
+                loadArtsArtist(1);
+              
+        }
+}
+});
+
+
+
+loadArtsArtist(5);
+
+function loadArtsArtist(limit){
+        flagScroll=false;
+ $('#load-more-arts').show();
+
+
+ $.ajax({
+    url: "getArtworksArtist",
+    method: 'POST',
+    dataType:'JSON',
+    data:{offset:offset, limit:limit},
+    beforeSend: function(){
+        flagScroll=false;
+    },
+    success: function(response){
+        flagScroll=false;
+    //actions print
+    let totalArts= response.length;
+      for(var i=0; i<response.length; i++){
+      offset++;
+      let item = response[i];
+      let html = ``;
+      let imageTypeHtml = ``;
+    
+let categories_tagsHtml=``;
+let tagsHtml='';
+
+if(item.categories_tags!=''){
+
+if(item.categories_tags.indexOf(',') != -1){
+       let arrayTmp=item.categories_tags.split(",");
+for(var t=0;t < arrayTmp.length;t++){
+categories_tagsHtml+=`<span class="badge badge-danger">`+arrayTmp[t]+`</span>`;
+}
+}else{
+        categories_tagsHtml=`<span class="badge badge-danger">`+item.categories_tags+`</span>`;   
+}
+
+
+}
+//
+
+let techniques_tagsHtml=``;
+if(item.techniques_tags!=''){
+
+if(item.techniques_tags.indexOf(',') != -1){
+       let arrayTmp=item.techniques_tags.split(",");
+for(var t=0;t < arrayTmp.length;t++){
+        techniques_tagsHtml+=`<span class="badge badge-danger">`+arrayTmp[t]+`</span>`;
+}
+}else{
+        techniques_tagsHtml=`<span class="badge badge-danger">`+item.techniques_tags+`</span>`;   
+}
+
+
+}
+//
+
+let thematic_tagsHtml=``;
+if(item.thematic_tags!=''){
+
+if(item.thematic_tags.indexOf(',') != -1){
+       let arrayTmp=item.thematic_tags.split(",");
+for(var t=0;t < arrayTmp.length;t++){
+        thematic_tagsHtml+=`<span class="badge badge-danger">`+arrayTmp[t]+`</span>`;
+}
+}else{
+        thematic_tagsHtml=`<span class="badge badge-danger">`+item.thematic_tags+`</span>`;   
+}
+}
+//
+
+tagsHtml=categories_tagsHtml+techniques_tagsHtml+thematic_tagsHtml;
+        
+               if(item.type_sale_art=='auction'){
+                imageTypeHtml=` <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>`;
+               }else{
+                imageTypeHtml=` <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>`;
+               }
+
+                
+                htmlMon="";
+
+               if(item.type_sale_art=='auction'){
+              
+                htmlMon=`<label class="text-center" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Oferta inicial"> Oferta actual: <br> <strong> $  `+item.offer_actuall.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>`;
+               }else{
+                htmlMon=`<label class="text-center" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Oferta inicial"> Precio: <br>  <strong> $  `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>`;
+               }
+
+var checkStatus='';
+if(item.status_step_art=='paid'){
+checkStatus='<strong>Pagada(Pendiente de envió)</strong> ';
+}else if(item.status_step_art=='received-buyer'){
+        checkStatus='<strong>En prueba </strong> ';
+}else if(item.status_step_art=='finished'){
+        checkStatus='<strong>Comprada </strong>';
+}else if(item.status_step_art=='send-buyer'){
+        checkStatus='<strong> Enviada a comprador</strong>';
+}else if(item.status_step_art=='returned'){
+        checkStatus='<strong> Regresada</strong>';
+}else if(item.status_step_art=='pending-paid-auction'){
+        checkStatus='<strong>En espera de pago</strong>';
+}else{
+        checkStatus=`<label class="label-likes fix-gray"  data-toggle="tooltip" data-placement="bottom" title="Tiempo para finalizar">  `+item.time_to_finish+` <i class="fas fa-stopwatch "></i></label> `;
+}
+
+             
+
+      if(item.type_art=='image'){
+              html=`
+        <div class="container-art mt-4">           
+         `+imageTypeHtml +`
+        <button onclick="eraseArt(`+item.cod_art+`)" class="btn delete-art" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="far fa-trash-alt" data-toggle="modal" data-target=".erase-modal"></i></button>
+    
+        <div class="container-fix-art">
+          <a href="artist-arts-edit-photo"> <button class="btn edit-art" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-edit"></i></button> </a>
+        <img src="imagesArs/`+item.url_art+`" class="img-art"  data-jslghtbx>
+        </div>
+                <div class="container-info-arts container-fluid">
+                    <div class="row mt-1">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">    
+                                `+htmlMon +`    
+                            </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <span>`+item.title_art+` - `+item.measurements+` </span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> `+item.number_likes+` <i class="fas fa-heart"></i></label> 
+                        </div>
+                    </div>
+                    <div class="row ">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-rigth">
+                                <Strong class="fix-gray">TAGS:</Strong>
+                              
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
+                                                `+tagsHtml+`   </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 " >
+                                        `+ checkStatus+`
+                                </div>
+                    </div>
+                </div>
+        </div>`;
+
+      }else if(item.type_art=='video'){
+           
+       html=`<div class="container-art mt-4">
+                `+imageTypeHtml +`
+        <button onclick="eraseArt(`+item.cod_art+`)" class="btn delete-art" data-toggle="tooltip" data-placement="bottom" title="Eliminar" ><i class="far fa-trash-alt" data-toggle="modal" data-target=".erase-modal"></i></button>
+      
+
+        <!-- <div class="type-title" data-toggle="tooltip" data-placement="bottom" title="Mostrar más info sobre la venta"><button >VENTA</button> </div> -->
+               
+ 
+
+        <div class="container-fix-art">
+                <a href="artist-arts-edit-video">           <button class="btn edit-art" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-edit"></i></button> </a>
+                
+                <video class="video-art " width="100%" height="340" controls >
+                              
+                    <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                      
+                </video>
+        
+        </div> 
+
+
+        
+                <div class="container-info-arts container-fluid">
+                    <div class="row mt-1">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                `+htmlMon +`    
+                            </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                        <span>`+item.title_art+` - `+item.measurements+` </span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos">`+item.number_likes+`<i class="fas fa-heart"></i></label> 
+                        </div>
+                    </div>
+                    <div class="row ">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-rigth">
+                                <Strong class="fix-gray">TAGS:</Strong>
+                              
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
+                                                `+tagsHtml+`
+                                
+                                </div>
+                                        
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 " >
+                                    
+                                        `+ checkStatus+`
+                                </div>
+                    </div>
+        
+                </div>
+        </div>`;
+      }
+    //  containerArts.append(html);
+
+   
+      $(html).appendTo(containerArts).hide().fadeIn(500, function(){
+          
+      });
+      $('#load-more-arts').hide();
+      
+      }
+      $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+var lightbox = new Lightbox();
+lightbox.load();
+flagScroll=true;
+//
+if(response.length<=0){
+        flagScroll=false;
+        $('#load-more-arts').hide();
+      }
+    },
+    error: function(err) {
+   console.log(JSON.stringify(err));
+    }
+});
+}
+
+
+
+</script>
+
+<script>
+function eraseArt(idArt){
+    
+$("#idArtModalErase").val(idArt);
+}
+</script>
+
+<% include artist-footer %>

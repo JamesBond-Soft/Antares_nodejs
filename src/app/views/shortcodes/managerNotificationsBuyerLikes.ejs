@@ -1,0 +1,144 @@
+<script>
+
+$( document ).ready(function() {
+  var containerNotificationsArtist=$("#container-notifi-artist-likes");
+  var numberNotificationsArtist= $("#number-notifications-artist-likes");
+  var numberNotificationsArtistMobile= $("#number-notifications-artist-likes-mobile");
+ 
+  
+    showNotifiTopLikes();
+    showCountNotifiTopLikes();
+        
+    setInterval(showNotifiTopLikes, 4000);
+   setInterval(showCountNotifiTopLikes, 4000);
+
+
+        
+function showNotifiTopLikes(){
+    $.ajax({
+    url: "/getNotificationsBuyerLikes",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+
+//alert(JSON.stringify(data));
+
+notificationsHtml=``;
+      for(var a in data) {
+
+    var item=data[a];
+    var imageNotifi=``;
+    var classNotifi=``;
+     if(item.img_notification == 'media/img/avatar-default.png'){ 
+        imageNotifi= `<img class="avatar-likes" src="/media/img/avatar-default.png"  />`;                        
+    }else if(item.img_notification.indexOf("http")!=-1){ 
+        imageNotifi= `<img class="avatar-likes" src="`+item.img_notification+`"  />`; 
+    }else{ 
+        imageNotifi= `<img class="avatar-likes" src="/imagesUsers/`+item.img_notification+`"  />`; 
+    } 
+
+    if(item.read=="false"){
+        var classNotifi=`notifi-unread`;
+    }else{
+        var classNotifi=`notifi-read`;
+    }
+    
+    notificationsHtml+=`
+<a  class="btn `+classNotifi+`"  data-toggle="tooltip" data-placement="bottom" title="Clic para más detalles">
+<div id="notify_`+item.cod_lino+`_likes" class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2  ">
+                `+imageNotifi+`
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10  ">
+               <div class="row">
+                   <div class="col text-left pl-2 list-title">  <strong>  `+item.name_buyer+` ha dado un me gusta</strong></div>
+               </div>
+               <div class="row ">
+                    <div class="col text-left pl-2 list-subtitle"> En  `+item.title_art+`</div>
+               </div>
+         </div>
+</div>
+</a>
+<script>
+    $("#notify_`+item.cod_lino+`_likes").click(function(){
+        setReadNotificationBuyerLikes(`+item.cod_lino+`);
+    });
+</`+`script>`;
+      }
+
+containerNotificationsArtist.html(notificationsHtml);
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+
+    }
+});
+}
+
+function showCountNotifiTopLikes(){
+    $.ajax({
+    url: "/getNotificationsBuyerCountLikes",
+    method: 'POST',
+    data:{
+      null:null
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+  
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+
+if(data[0].number_notifi<=0){
+    numberNotificationsArtistMobile.hide();
+    numberNotificationsArtist.hide();
+}else{
+    numberNotificationsArtistMobile.show();
+    numberNotificationsArtist.show();
+numberNotificationsArtistMobile.text(data[0].number_notifi);
+numberNotificationsArtist.text(data[0].number_notifi);
+}
+
+
+
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+});
+
+function setReadNotificationBuyerLikes(notifiId){
+    $.ajax({
+    url: "/setReadNotificationBuyerLikes",
+    method: 'POST',
+    data:{
+        notifiId:notifiId
+    },
+    beforeSend: function(){
+
+    },
+    success: function(data){
+     var data= JSON.stringify(data);
+     data=JSON.parse(data);
+     window.location.href = "/artist";
+
+    },
+    error: function(err) {
+console.log(JSON.stringify(err));
+    }
+});
+}
+</script>

@@ -1,0 +1,446 @@
+<% include buyers-header %>
+
+<section class="container">
+
+<div class="row">
+
+        <% include buyers-aside %>
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+     <div class="container-filters-buyers ">
+      <div class="row">
+              <div id="filter-head-down" class="col-xs-12 text-center filter-head ">Estados</div>
+      </div>
+
+     </div>
+
+
+<!-- list and pagination arts -->
+
+
+                
+                <div id="container-arts">
+
+                </div>
+
+<!-- end list and pagination arts -->
+
+<div class=" row mt-5 ">
+        <div class="col-sm-12 d-flex justify-content-center">
+    
+                <nav class="nav-pagination">
+                        <ul class="pagination" id="container-pag">
+                          
+                        </ul>
+                </nav>
+        </div>
+    </div>
+ </div>
+
+    <!-- end arts -->
+
+
+  
+
+
+</div>
+
+</section>
+
+<script>
+        var limitInit=1;//important 1
+        var containerArts=$("#container-arts");
+        var containerPagination=$("#container-pag");
+        var cantToShow=5;
+        
+        var startLink=1;
+        var cantToShowLink=5;
+        artistArtsShipping(limitInit);
+        
+         function artistArtsShipping(limit){
+                
+         $.ajax({
+            url: "getBuyerStatesList",
+            method: 'POST',
+            dataType:'JSON',
+            data:{limit:limit,cantToShow:cantToShow},
+            beforeSend: function(){
+         
+            },
+           success: function(response){  
+             
+        var htmlArts='';
+            for(var i=0; i<response.data.length; i++){
+              
+ let item = response.data[i];
+ let giveLike = ``;
+ let titleLike = ``;
+    
+if(item.iam_like=='NOLIKE'){
+   giveLike = `unlike`;
+   titleLike = `Dar me gusta`;
+}else{
+   giveLike = `like`;
+   titleLike = `Quitar me gusta`;
+}
+        
+
+         var htmlVideoImage=``;
+         var postLink=``;
+
+   if(item.type_art=="image"){
+        
+    if(item.status_step_art=='received-buyer'){
+      htmlVideoImage=` 
+          <img src="imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+
+        <div class="state-list-label bg-in-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Clic para ver más"><button class="btn-label" type="submit">en prueba   </button><a id="id_art_link_`+item.cod_art+`" style="float:right" class="mr-2"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Clic para poner fin a périodo de prueba"><i class="fas fa-stopwatch"></i></a>  </div>    
+          <script>
+
+$("#id_art_link_`+item.cod_art+`").click(function(){
+var itemJson=`+JSON.stringify(item)+`;
+qualifyArtist(itemJson);
+});
+</`+`script>
+          `;
+          postLink="buyers-in-test-post";
+    }else{
+      htmlVideoImage=` 
+          <img src="imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+        
+          <button type="submit" ><div class="state-list-label bg-in-route" data-toggle="tooltip" data-placement="bottom" title="Clic para ver más"> en ruta </div></button>
+       
+          `;
+          
+          postLink="goBuyerTypeStatesOnRoute";
+        }
+      }else{
+  
+
+          if(item.status_step_art=='received-buyer'){
+              htmlVideoImage=`
+          <video class="video-art" width="100%" height="200" controls>
+             <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                                                     
+          </video>
+        
+          <div class="state-list-label bg-in-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Clic para ver más"><button class="btn-label"  type="submit">en prueba   </button><a id="id_art_link_`+item.cod_art+`" style="float:right" class="mr-2"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Clic para poner fin a périodo de prueba"><i class="fas fa-stopwatch"></i></a>  </div>    
+          
+
+       
+          <script>
+
+$("#id_art_link_`+item.cod_art+`").click(function(){
+var itemJson=`+JSON.stringify(item)+`;
+qualifyArtist(itemJson);
+});
+</`+`script>
+          `;
+          postLink="buyers-in-test-post";
+          }else{
+          htmlVideoImage=`
+          <video class="video-art" width="100%" height="200" controls>
+          <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                                                     
+          </video>
+        
+          <button type="submit"><div class="state-list-label bg-in-route" data-toggle="tooltip" data-placement="bottom" title="Clic para ver más"> en ruta </div></button>
+  
+          `;
+          postLink="goBuyerTypeStatesOnRoute";
+          }
+      }
+
+if(item.type_sale_art=='auction'){
+        
+        htmlArts+=`
+        
+        <div class="container-art mt-4" >
+<form action="`+postLink+`" method="POST">
+<input type="hidden" name="type_sale_art" value="`+item.type_sale_art+`">
+<input type="hidden" name="id_auction" value="`+item.id_auction+`">
+
+
+                <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                <a id="`+item.cod_art+`_title_like" class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like" class="fas fa-heart `+giveLike+`"></i></a>
+            
+                
+                <div class="container-fix-art"> 
+                        `+htmlVideoImage+`
+               </div>
+                
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                              
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` - <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.name_creator+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos" > <span id="`+item.cod_art+`_number_like"> `+item.number_likes+` </span> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial">  Oferta inicial:  <strong> $ `+item.minimum_bid_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+` </strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                        <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong class="actual-offer"> $ `+item.offer_winner.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>   
+                                        </div>
+                                      
+                            </div>
+    
+                
+                        </div>
+                </form>
+                </div>
+             
+                <script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script> `;
+        
+       
+             }else{
+
+         htmlArts+= `
+         
+         <div class="container-art mt-4">
+                <form action="`+postLink+`" method="POST">
+<input type="hidden" name="type_sale_art" value="`+item.type_sale_art+`">
+<input type="hidden" name="id_sale" value="`+item.id_sale+`">
+                <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                <a id="`+item.cod_art+`_title_like" class=" delete-art-img" data-toggle="tooltip" data-placement="bottom" title="`+titleLike+`"><i id="`+item.cod_art+`_like" class="fas fa-heart `+giveLike+`"></i></a>
+                <div class="container-fix-art"> 
+               
+                        `+htmlVideoImage+`
+               </div>
+                        <div class="container-info-arts container-fluid">
+                            <div class="row mt-1">
+                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                         
+                                    </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                    <span>`+item.title_art+` - `+item.measurements+` -  <a data-toggle="tooltip" data-placement="bottom" title="Ver más sobre el creador" href="buyers-artist-profile/`+item.cod_ar2+`">`+item.name_creator+`</a> </span>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> <span id="`+item.cod_art+`_number_like">`+item.number_likes+`</span> <i class="fas fa-heart"></i></label> 
+                                </div>
+                            </div>
+                            <div class="row ">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                      
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                               
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                            
+                                              
+                                        </div>
+                            </div>
+                        </div>
+                </form>
+                </div>   
+<script>
+
+$("#`+item.cod_art+`_like").click(function(){
+
+if($(this).hasClass('like')){
+
+$("#`+item.cod_art+`_title_like").attr('title', 'Dar me gusta');
+$(this).removeClass('like');
+$(this).addClass('unlike');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes-1);
+
+unlikeArt(`+item.cod_art+`);
+
+}else{
+  $("#`+item.cod_art+`_title_like").attr('title', 'Quitar me gusta');
+  $(this).removeClass('unlike');
+$(this).addClass('like');
+let numberLikes=parseInt($("#`+item.cod_art+`_number_like").text());
+$("#`+item.cod_art+`_number_like").text(numberLikes+1);
+
+ likeArt(`+item.cod_art+`);
+}
+
+});
+</`+`script> `;
+             }
+        
+            }
+        
+        containerArts.html(htmlArts);
+        
+        pagesHtml="";
+        
+        var numberLinks= Math.ceil((parseInt(response.count)/cantToShow));
+        
+        if(limit>1){
+                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+1+`)">&laquo;</a></li>`;
+                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit-1)+`)">&lsaquo;</a></li>`;
+        }else{
+                pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&laquo;</a></li>`;
+                pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&lsaquo;</a></li>`;
+        }
+        
+        
+        for(var i=1; i<=numberLinks; i++){
+        if(i>=(startLink-1) && i<=(startLink+(cantToShowLink-1)) ){
+                if(i==limit){
+                 
+                        pagesHtml+= `<li class="page-item "  ><a class="page-link active-antares-link" href="javascript:void(0)" >`+i+`</a></li>`;
+                }else{
+                        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)" onclick="changeLinkStart(`+i+`)">`+i+`</a></li>`;
+                    
+                }
+        }
+        
+        }
+        
+        if(limit<numberLinks){
+                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit+1)+`)">&rsaquo;</a></li>`;
+                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+(numberLinks)+`)">&raquo;</a></li>`;
+        }else{
+                pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&rsaquo;</a></li>`;
+                pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&raquo;</a></li>`;
+        }
+        containerPagination.html(pagesHtml);
+        
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+        var lightbox = new Lightbox();
+        lightbox.load();
+        
+        },
+        error: function(err) {
+        //alert(JSON.stringify(err));
+         }
+        });
+        
+        }
+        </script>
+
+
+<script>
+function unlikeArt(idArt){
+  $.ajax({
+    url: "unlikeArt",
+    method: 'POST',
+    dataType:'JSON',
+    data:{idArt:idArt},
+    beforeSend: function(){
+      
+    },
+success: function(response){
+
+},
+error: function(err) {
+alert(JSON.stringify(err));
+ }
+});
+}
+
+function likeArt(idArt){
+  $.ajax({
+    url: "likeArt",
+    method: 'POST',
+    dataType:'JSON',
+    data:{idArt:idArt},
+    beforeSend: function(){
+      
+    },
+success: function(response){
+
+},
+error: function(err) {
+alert(JSON.stringify(err));
+ }
+});
+}
+</script>
+
+
+<script>
+        function qualifyArtist(item){
+                var data=item;
+        
+                     $.ajax({
+                            url: "getDataArtistRating",
+                            method: 'POST',
+                            dataType:'JSON',
+                            data:{cod_artist:item.cod_ar2},
+                            beforeSend: function(){
+                         },
+        success: function(response){  
+        
+        if(response.artist.image_ar == 'media/img/avatar-default.png'){
+                $("#img-rating-artist").attr("src","media/img/avatar-default.png");                           
+        }else if(response.artist.image_ar.indexOf("http")!=-1){ 
+                $("#img-rating-artist").attr("src",response.artist.image_ar);                                       
+        }else{ 
+                $("#img-rating-artist").attr("src",'imagesUsers/'+response.artist.image_ar);                            
+         } 
+         $("#name-rating-artist").text(response.artist.name_ar);
+        
+         //
+        
+         $("#input_type_sale_art").val(item.type_sale_art);
+         if(item.type_sale_art=="direct"){
+                $("#input_id_aucton_sale").val(item.id_sale);
+                $("#input_od_bu4").val(item.cod_bu4);
+            
+         }else{
+                $("#input_id_aucton_sale").val(item.id_auction);
+                $("#input_od_bu4").val(item.cod_bu3);
+         }
+         $("#input_cod_art").val(item.cod_art);
+         $("#input_title_art").val(item.title_art);
+         $("#input_measurements").val(item.measurements);
+         $("#input_author_art").val(item.author_art);
+        
+        
+          $("#input_cod_artist_rating").val(response.artist.cod_ar);
+         
+          
+        //alert(JSON.stringify(response));
+                        },
+                        error: function(err) {
+                       // alert(JSON.stringify(err));
+                         }
+                        });
+                          
+                         $('#modal-qualify-artist').modal('show');
+        }
+                
+        </script>
+
+<% include buyers-footer-normal %>

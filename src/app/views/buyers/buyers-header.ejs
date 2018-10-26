@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- caceh -->
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Last-Modified" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+<meta http-equiv="Pragma" content="no-cache">
+
+<!-- cache -->
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+      <link rel="stylesheet" href="/css/bootstrap/bootstrap-social.css">
+      <!-- Font Awesome CSS-->
+      <link rel="stylesheet" href="/css/font-awesome/css/fontawesome-all.min.css">
+      <!-- IonIcons -->
+      <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- Google Font: Source Sans Pro -->
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+      <!-- Antares CSS -->
+      <link rel="stylesheet" href="/css/antares.css">
+      <!-- Peace resources -->
+      <script src="/js/pace.js"></script>
+      <link rel="stylesheet" href="/css/pace-theme-minimal.css"/>
+      <!-- lightbox -->
+     
+      <link rel="stylesheet" href="/css/lightbox.css">
+
+      <link href="/media/img/ico-antares.ico" rel="shortcut icon" />
+
+          
+      <script src="/js/jquery-3.2.1.js"></script>
+
+      <script src="/plugins/pushJs/push.js"></script>
+
+      <% include ../shortcodes/managerNotificationsBuyer %>
+     
+         
+      <title>Buyers</title>
+   </head>
+<body class="body-artist">
+    <span class="go-top"> <i class="fas fa-angle-up"></i></span>
+   <!-- header and nav -->
+<header class="container-fluid navbar-border-bot-artist fixed-top" >
+
+<nav class="navbar navbar-toggleable-md navbar-light container ">
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="/buyers">
+                <img src="/media/img/logo-antares.png" class="img-brand" width="120" height="50" alt="">
+        </a>
+        <div class="switch-acount navbar-brand d-lg-none"><a href="/artist" ><img src="/media/img/switch.png"   data-toggle="tooltip" data-placement="bottom" title="Cambiar a mi cuenta de creador"></a> </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <div class="navbar-nav text-center">
+                <a class="nav-item nav-link active items-link-nav" href="/buyers"><i class="fas fa-home"></i> Inicio</a>
+
+          </div>
+          <div class="switch-acount2 d-none d-lg-block"><a href="/artist" ><img src="/media/img/switch.png" data-toggle="tooltip" data-placement="bottom" title="Cambiar a mi cuenta de creador"></a> </div>  
+
+         
+          <form class="form-inline my-2 my-lg-0 ml-auto">
+                <div class="input-group group-serach-nav">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Buscar" >
+                        <button class="btn btn-search"><i class="fas fa-search"></i></button>
+               </div>
+          </form>
+
+          <!-- navbar mobile -->
+          <div class="navbar-nav d-lg-none mobile-menu-antares-artist">
+
+
+                        <div class="accordion" id="accordionExample">
+                                        <div class="card">
+                                          <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                              <a class="btn btn-link" type="button" href="/buyers-notification-list">
+                                                        <span style="display:none;" id="number-notifi-mobile" class="number-notifi-mobile"></span>   <i class="far fa-bell" ></i> Mis notificaciones 
+                                              </a>
+                                            </h5>
+                                          </div>
+        
+                                        </div>
+        
+    
+        
+        
+        
+                                        <div class="card">
+                                          <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0">
+                                              <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#activity" aria-expanded="false" aria-controls="collapseTwo">
+                                                        <i class="fas fa-chart-line"></i> Mi actividad <i class="fas fa-sort-down"></i>
+                                              </a>
+                                            </h5>
+                                          </div>
+                                          <div id="activity" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                        <ul class="list-group">
+                                                                  
+            <div class="container-custom-tarjet pb-0  ">
+        
+               
+           
+        
+                        <div class="row text-center">
+                            <div class="col-xs-2 col-sm-2 col-md-2  ">
+                                        <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                                <img   class="avatar-artist" src="/media/img/avatar-default.png"  />
+                                                <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                                        <img  class="avatar-artist" src="<%= user.image_ar %>" /> 
+                                                  <% }else{ %>
+                                                 <img  class="avatar-artist" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                          <% } %>
+                            </div>
+                            <div class="col-xs-10 col-sm-10 col-md-10 d-flex align-items-center ">
+                                    <p class="name-artist"> <%= user.name_ar  %> </p>
+                         
+                                 
+                             </div>
+                            
+                        </div>
+                
+          
+                        <div class="row text-center row-transfers">
+                                <div class="col-12">
+                                                <a href="/buyers-artist-list"><span class="span-subtitle"> Siguiendo </span>  <span class="span-result" id="number-follows-buyer_mobile"> 0 </span></a>
+                                </div>
+                                
+                        </div>
+                    
+         
+        
+                    </div>
+                                                                        <a href="/buyers-arts-bought"  class="list-group-item"> <span class="span-menu-mobile1" id="number_buy_mobile" >0</span> <span class="span-menu-mobile2"> Compradas</span> </a>
+                                                                        <a href="/buyers-auction-offers" class="list-group-item"><span class="span-menu-mobile1" id="number_my_offers_mobile">0</span> <span class="span-menu-mobile2"> Mis ofertas de Subasta</span></a>
+                                                                        <a href="/buyers-shipping-pending" class="list-group-item"><span class="span-menu-mobile1" id="number_pending_send_mobile">0</span> <span class="span-menu-mobile2"> Pendientes para Envió</span></li>
+                                                                        <a href="/buyers-on-route" class="list-group-item"><span class="span-menu-mobile1" id="in_rute_mobile">0</span> <span class="span-menu-mobile2"> En ruta</span></a>
+                                                                        <a href="/buyers-in-test" class="list-group-item"><span class="span-menu-mobile1" id="in_test_mobile">0</span> <span class="span-menu-mobile2"> En prueba</span></a>
+                                                                        <a href="/buyers-paid-pending-auction" class="list-group-item"><span class="span-menu-mobile1" id="number_pending_paid_mobile">0</span> <span class="span-menu-mobile2">Subastas en espera de pago</span></a>
+                                                                        <a href="/buyers-art-return-list" class="list-group-item"><span class="span-menu-mobile1" id="number_returned_mobile">0</span> <span class="span-menu-mobile2">Obras regresadas</span></a>
+
+                                                                          <!-- OTHER -->
+ 
+                                                                          <div class="card">
+                                                                                        <div class="card-header btn-link2" >
+                                                                                          <h5 class="mb-0">
+                                                                                            <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#inCurse" aria-expanded="false" aria-controls="inCurse">
+                                                                                                         SUBASTAS EN CURSO <i class="fas fa-sort-down"></i>
+                                                                                            </a>
+                                                                                          </h5>
+                                                                                        </div>
+                                                                                        <div id="inCurse" class="collapse" aria-labelledby="headingTwo" data-parent="#inCurse">
+                                                                                          <div class="card-body">
+                                                                                                        <div class="row m-4">
+                                                                                              
+                                                                                                <div id="containerArtsAuctionsInCurseMobile">
+
+                                                                                                </div>
+                                                                                                
+                                                                                               <div class="col-12 text-center mt-2" id="containerArtsAuctionsInCurseLinkMobile">
+                                                                                                
+                                                                                                                              
+                                                                                             </div>
+                                                                                                                       
+                                                                                                                    </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                        </div>
+
+                                                                        <div class="card">
+                                                                                        <div class="card-header btn-link2" >
+                                                                                          <h5 class="mb-0">
+                                                                                            <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#states" aria-expanded="false" aria-controls="states">
+                                                                                                         ESTADOS <i class="fas fa-sort-down"></i>
+                                                                                            </a>
+                                                                                          </h5>
+                                                                                        </div>
+                                                                                        <div id="states" class="collapse" aria-labelledby="states" data-parent="#states">
+                                                                                          <div class="card-body">
+                                                                                                        <div class="row m-4">
+                                                                                                           
+                                                                <div id="container-arts-states-aside-mobile">
+
+                                                                </div>
+                                                                    
+                                                                                                                   
+
+                                                                                                     
+                                                                                                
+                                                                <div class="col-12 text-center mt-2"  id="container-show-more-aside-mobile">
+                                                                                                
+                                                                  
+                                                                   
+                                                                </div>
+                                                                                                                       
+                                                                                                                    </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                        </div>
+                                                                          <!-- END OTHER -->
+
+                                                                               
+                                                                                    
+                                                                                    
+                                                       </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+        
+                                        <div class="card">
+                                                        <div class="card-header" >
+                                                          <h5 class="mb-0">
+                                                            <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#profile" aria-expanded="false" aria-controls="collapseTwo">
+                                                                        <i class="fas fa-user-circle"></i> Perfil <i class="fas fa-sort-down"></i>
+                                                            </a>
+                                                          </h5>
+                                                        </div>
+                                                        <div id="profile" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                          <div class="card-body">
+                                                                      <ul class="list-group">
+                                                                                      <a href="/buyers-profile"  class="list-group-item"><i class="far fa-edit ico-le"></i> Modificar perfil</a>
+                                                                                     
+                                                                                      <a href="/buyers-transfers-payments" class="list-group-item"><i class="fas fa-exchange-alt ico-le"></i> Mis transferencias y pagos</li>
+                                                                                      
+                                                                                      <a href="/exit-session" class="list-group-item"><i class="fas fa-sign-out-alt ico-le"></i> Cerrar sessión</a>
+                                                                     </ul>
+                                                          </div>
+                                                        </div>
+                                        </div>
+        
+                                                      <div class="card">
+                                                                <div class="card-header" >
+                                                                  <h5 class="mb-0">
+                                                                    <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#idioms" aria-expanded="false" aria-controls="collapseTwo">
+                                                                                <i class="fas fa-globe-americas"></i> Idiomas <i class="fas fa-sort-down"></i>
+                                                                    </a>
+                                                                  </h5>
+                                                                </div>
+                                                                <div id="idioms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                                  <div class="card-body">
+                                                                              <ul class="list-group">
+                                                                                              <a href="#"  class="list-group-item">Español</a>
+                                                                                              <a href="#" class="list-group-item">Ingles</a>
+                                                                                              
+                                                                             </ul>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                
+        
+                                                              <div class="card">
+                                                                        <div class="card-header" id="headingOne">
+                                                                          <h5 class="mb-0">
+                                                                            <a href="/buyers-contact" class="btn btn-link" type="button" >
+                                                                                        <i class="far fa-envelope" ></i>  Contactar con antares
+                                                                            </a>
+                                                                          </h5>
+                                                                        </div>
+                                      
+                                                           </div>
+        
+        
+                                    
+                                      </div>
+                   </div>
+        <!-- end navbar mobile -->
+
+
+<div class="d-none d-lg-block">
+          <div class="navbar-nav text-center">
+            
+                <a class="no-show-fix nav-item nav-link icon-nav d-block d-sm-none d-none d-sm-block d-md-none" href="/buyers-contact"><i class="far fa-envelope" ></i> <span class="">Contactar con Antares</span></a>
+            <a class=" no-show-fix nav-item nav-link icon-nav d-block d-sm-none d-none d-sm-block d-md-none" href="#"> <span style="display:none;" class="number-notifi"></span> <i class="far fa-bell" ></i> <span class="">Mis notificaciones</span></a>
+            <a class="no-show-fix nav-item nav-link icon-nav d-block d-sm-none d-none d-sm-block d-md-none" href="#"><span style="display:none;" class="number-likes"></span> <i class="far fa-heart" ></i>  <span class="">Me gusta recibidos</span></a>
+        
+    
+            <a class="nav-item nav-link icon-nav d-none d-sm-block d-sm-none d-md-block" href="/buyers-contact"><i class="far fa-envelope"  data-toggle="tooltip" data-placement="bottom" title="Contactar con Antares"></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Contactar con Antares</span></a>
+   <!-- notifications list -->
+   <li class="li-list-custom nav-item dropdown d-none d-sm-block d-sm-none d-md-block">
+        <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span style="display:none;" id="number-notifications-buyer" class="number-notifi"></span>
+                <i class="far fa-bell" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Me gusta recibidos</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+       
+        <div class="row header-list"> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left "><span class="ml-2">NOTIFICACIONES</span></div> <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right"><a href="/buyers-notification-list" class="mr-2 see-all-list">VER TODAS</a></div> </div>
+       
+     
+        <div id="container-notifi-buyer" class="container-likes">
+
+
+    
+
+
+
+
+
+       </div>
+
+        </div>
+     </li>
+<!-- end notifications list -->          
+
+
+ <li class="nav-item dropdown ">
+        <a class="nav-link nav-link icon-nav" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-globe-asia" ></i> <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Lenguaje</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+           <a href="#" class="dropdown-item">Español</a>
+           <a href="#" class="dropdown-item">Ingles</a>
+
+           
+        </div>
+     </li>
+            
+            <li class="nav-item dropdown ">
+                <a class="nav-link " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <% if(user.image_ar == 'media/img/avatar-default.png'){ %>
+                                        <img   class="avatar-artist-nav" src="/media/img/avatar-default.png"  />
+                                        <% }else if(user.image_ar.indexOf("http")!=-1){ %>
+                                                <img  class="avatar-artist-nav" src="<%= user.image_ar %>" /> 
+                                          <% }else{ %>
+                                         <img  class="avatar-artist-nav" src="<%= '/imagesUsers/'+user.image_ar %>" /> 
+                                  <% } %>
+                        <span class="d-none d-none d-sm-block d-md-none d-block d-sm-none span-dropdown">Nombre del comprador </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                   <a href="/buyers-profile" class="dropdown-item"><i class="far fa-edit"></i> Modificar perfil</a>
+                   <a href="/buyers-transfers-payments" class="dropdown-item"><i class="fas fa-exchange-alt"></i>  Mis transferencias y pagos</a>
+           
+                   <a href="/exit-session" class="dropdown-item"> <i class="fas fa-sign-out-alt"></i>  Cerrar sessión </a>
+                   
+                </div>
+             </li>
+
+      </div>
+      </div>
+        </div>
+</nav>
+</header>
+    <!-- end header and nav -->
+<% include ../shortcodes/modal-qualify-artist %>

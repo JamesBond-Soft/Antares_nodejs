@@ -1,0 +1,368 @@
+
+
+<footer class="footer-artist container-fluid ">
+
+    <div class="container p-3">
+        <div class="row text-center">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+ <ul class="ul-footer">
+     <li><a href="#">política de privacidad</a></li>
+ </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                    <ul class="ul-footer">
+                            <li><a href="#">términos de servicio</a></li>
+                        </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                        <ul class="ul-footer">
+                                <li><a href="#">acuerdo de usuario</a></li>
+                            </ul>
+                    </div>
+        </div>
+        <hr class="hr-1">
+        <h1 class="copyrigth-footer">Copyright © 2018 Antares. All rights reserved</h1>
+    </div>
+
+
+</footer>
+
+
+
+
+     
+      <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+      <script src="/js/bootstrap/bootstrap.js"></script>
+      <script src="/js/go-up.js"></script>
+
+
+      <script>
+      $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+      </script>
+
+<!-- <script type="text/javascript" src="js/slimbox2.js"></script> -->
+
+<script src="/js/lightbox.js" type="text/javascript"></script>
+<script>
+
+var lightbox = new Lightbox();
+lightbox.load();
+
+</script>
+
+<!-- combobox -->
+<script>
+                var expanded = false;
+                var expanded2 = false;
+                var expanded3 = false;
+
+                function showCheckboxes() {
+                  var checkboxes = document.getElementById("checkboxesb");
+                  if (!expanded) {
+                    checkboxes.style.display = "block";
+                    expanded = true;
+                  } else {
+                    checkboxes.style.display = "none";
+                    expanded = false;
+                  }
+                }
+
+                function showCheckboxes2() {
+                  var checkboxes = document.getElementById("checkboxesb2");
+                  if (!expanded2) {
+                    checkboxes.style.display = "block";
+                    expanded2 = true;
+                  } else {
+                    checkboxes.style.display = "none";
+                    expanded2 = false;
+                  }
+                }
+
+                function showCheckboxes3() {
+                  var checkboxes = document.getElementById("checkboxesb3");
+                  if (!expanded3) {
+                    checkboxes.style.display = "block";
+                    expanded3 = true;
+                  } else {
+                    checkboxes.style.display = "none";
+                    expanded3 = false;
+                  }
+                }
+
+                $("#filter-head-down").click( function(){
+                     $("#row-filters").toggleClass( "row-filters", "row-filters2" );
+                ;
+                });
+                </script>
+
+<!-- combobox2 -->
+<script>
+                var vexpanded = false;
+                var vexpanded2 = false;
+                var vexpanded3 = false;
+
+                function vshowCheckboxes() {
+                  var vcheckboxes = document.getElementById("vcheckboxesb");
+                  if (!vexpanded) {
+                    vcheckboxes.style.display = "block";
+                    vexpanded = true;
+                  } else {
+                    vcheckboxes.style.display = "none";
+                    vexpanded = false;
+                  }
+                }
+
+                function vshowCheckboxes2() {
+                  var vcheckboxes = document.getElementById("vcheckboxesb2");
+                  if (!vexpanded2) {
+                    vcheckboxes.style.display = "block";
+                    vexpanded2 = true;
+                  } else {
+                    vcheckboxes.style.display = "none";
+                    vexpanded2 = false;
+                  }
+                }
+
+                function vshowCheckboxes3() {
+                  var vcheckboxes = document.getElementById("vcheckboxesb3");
+                  if (!vexpanded3) {
+                    vcheckboxes.style.display = "block";
+                    vexpanded3 = true;
+                  } else {
+                    vcheckboxes.style.display = "none";
+                    vexpanded3 = false;
+                  }
+                }
+
+
+
+                    $("#vfilter-head-down").click( function(){
+                     $("#vrow-filters").toggleClass( "row-filters", "row-filters2" );
+
+                });
+                </script>
+     
+
+
+
+<script type="text/javascript" src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
+<script type="text/javascript">
+  $(function() {
+
+
+
+          // Format while typing & warn on decimals entered, no cents
+          $('.money').blur(function() {
+
+                  $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: 0 });
+          })
+          .keyup(function(e) {
+                  var e = window.event || e;
+                  var keyUnicode = e.charCode || e.keyCode;
+                  if (e !== undefined) {
+                          switch (keyUnicode) {
+                                  case 16: break; // Shift
+                                  case 27: this.value = ''; break; // Esc: clear entry
+                                  case 35: break; // End
+                                  case 36: break; // Home
+                                  case 37: break; // cursor left
+                                  case 38: break; // cursor up
+                                  case 39: break; // cursor right
+                                  case 40: break; // cursor down
+                                  case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key search for ". Del")
+                                  case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                                  case 190: break; // .
+                                  default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                          }
+                  }
+          })
+          .bind('decimalsEntered', function(e, cents) {
+                  var errorMsg = 'Please do not enter any cents (0.' + cents + ')';
+
+                  log('Event on decimals entered: ' + errorMsg);
+          });
+
+
+
+
+  });
+</script>
+
+
+<script>
+        $(function() {
+
+ $("#ventaInput").on('keyup', function(){
+
+        if(this.value!=""){
+                $("#subastaInput").prop('disabled', true);
+        }else{
+                $("#subastaInput").prop('disabled', false);
+        }
+    });
+
+     $("#subastaInput").on('keyup', function(){
+
+      if(this.value!=""){
+              $("#ventaInput").prop('disabled', true);
+      }else{
+              $("#ventaInput").prop('disabled', false);
+      }
+  });
+
+  //
+  $("#vventaInput").on('keyup', function(){
+
+      if(this.value!=""){
+              $("#vsubastaInput").prop('disabled', true);
+      }else{
+              $("#vsubastaInput").prop('disabled', false);
+      }
+  });
+
+   $("#vsubastaInput").on('keyup', function(){
+
+    if(this.value!=""){
+            $("#vventaInput").prop('disabled', true);
+    }else{
+            $("#vventaInput").prop('disabled', false);
+    }
+});
+
+
+        });
+</script>
+
+<script>
+
+  $( document ).ready(function() {
+
+  $("#btnI1").focus();
+
+  for(var a=2;a<5;a++){
+  $("#info"+a).hide();
+  }
+
+  $("#btnI1").click(function(){
+          for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+  $("#info1").show();
+  });
+
+  $("#btnI2").click(function(){
+          for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+  $("#info2").show();
+
+  });
+
+  $("#btnI3").click(function(){
+          for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+  $("#info3").show();
+
+  });
+
+  $("#btnI4").click(function(){
+          for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+  $("#info4").show();
+  });
+
+
+  });
+
+</script>
+
+<% try{ %>
+<% if (tab.length > 0) { %>
+
+<script>
+          $( document ).ready(function() {
+if('<%= tab %>' == 'tab1'){
+        for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+        $("#btnI1").focus();
+        $("#info1").show();
+}else if('<%= tab %>' == 'tab2'){
+        for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+        $("#btnI2").focus();
+        $("#info2").show();
+
+}else if('<%= tab %>' == 'tab3'){
+        for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+        $("#btnI3").focus();
+        $("#info3").show();
+
+}else if('<%= tab %>' == 'tab4'){
+        for(var a=1;a<5;a++){
+  $("#info"+a).hide();
+  }
+        $("#btnI4").focus();
+        $("#info4").show();
+}
+});
+</script>
+<% } %>
+<% }catch(err){} %>
+ <!-- ////////////////////////////////////////////////////////////////////////// modal add photo or image -->
+ <% include ../shortcodes/imageUploadManager %>
+<!-- ////////////////////////////////////////////////////////////////////////// end modal add photo or image -->
+
+  <!-- ////////////////////////////////////////////////////////////////////////// modal add video -->
+  <% include ../shortcodes/videoUploadManager %>
+<!-- ////////////////////////////////////////////////////////////////////////// end modal video -->
+
+<script>
+                function readURL2(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function (e) {
+                        $('#blah2').attr('src', e.target.result);
+                    }
+                    
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            
+            $("#imgInp2").change(function(){
+                readURL2(this);
+            });
+ </script>
+ <script>
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+</script>
+        
+
+
+
+
+   </body>
+</html>

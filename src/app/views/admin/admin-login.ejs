@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+      <link rel="stylesheet" href="css/bootstrap/bootstrap-social.css">
+      <!-- Font Awesome CSS-->
+      <link rel="stylesheet" href="css/font-awesome/css/fontawesome-all.min.css">
+      <!-- Antares CSS -->
+      <link rel="stylesheet" href="css/antares.css">
+
+      <link href="media/img/ico-antares.ico" rel="shortcut icon" />
+      <title> Antares</title>
+
+      <script src="js/pace.js"></script>
+      <link href="css/pace-theme-minimal.css" rel="stylesheet" />
+   </head>
+  
+   <body class="body-login">
+      <header>
+       
+         <nav class="navbar fixed-top  navbar-inverse">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Idioma
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                     <a href="#" class="dropdown-item">Español</a>
+                     <a href="#" class="dropdown-item">Inglish</a>
+                  </div>
+               </li>
+            </ul>
+            </div>
+         </nav>
+         <img class="img-form-login mb-3" src="media/img/logo-antares.png" alt="">
+         <br>
+         <br>
+      </header>
+
+
+
+      <section class="main-login-reg main container text-center mt-5">
+    
+       
+         <div class="row mt-4" id="form-register">
+     
+         
+
+                     <!-- login form -->
+            <div class="col-xs-12 col-sm-12 col-md-12 row-forms text-center" >
+                <div class="container-form-login " style="width: 400px !important; display:inline-block; min-height: 200px !important;">
+            
+                   <div class="divider">Administrador</div>
+                   <form  class="" action="#" method="post">
+                      <div class="form-group">
+                         <input type="email" class="form-control" id="InputEmail" aria-describedby="email" placeholder="Email">
+                      </div>
+                      <div class="form-group">
+                         <input type="password" class="form-control" id="InputPass" aria-describedby="pass" placeholder="Contraseña">
+                      </div>
+                      <a  href="admin-dasboard" class="btn-login btn  btn-large  btn-block mb-4" style="color:#fff;">Acceder</a>
+                   </form>
+                   <a href="#">¿Olvidaste tu Contraseña?</a>
+                </div>
+             </div>
+             <!-- end login form -->
+         
+         </div>
+      
+    
+    
+        </section>
+
+      <img class="footer-img-login" src="media/img/bg-login2.png" >
+     
+      <footer class="footer-reg-log">
+        <div class="container-fluid">
+            <!-- <div class="row text-center">
+
+                
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+                        <a href="http://">POLÍTICA DE PRIVACIDAD</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <a href="http://">SOBRE NOSOTROS</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <a href="http://">CÓMO FUNCIONA</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <a href="http://">ACUERDO DE USUARIO</a>
+                </div>
+                
+            </div> -->
+       <br>
+            <div class="row">
+                <div class=" col-lg-12 text-center">
+                        <h1 class="copyrigt-reg-log">Copyright © 2018 Antares. All rights reserved</h1>
+                </div>
+            </div>
+
+        </div>
+
+      </footer>
+     
+      <script src="js/jquery-3.2.1.js"></script>
+      <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+      <script src="js/bootstrap/bootstrap.js"></script>
+      <!-- <script src="js/controller-hide-show-forms.js"></script> -->
+      <script src="js/controller-only-one-checkbox.js"></script>
+      <script src="js/pwstrength.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function () {
+             "use strict";
+             var options = {};
+             options.ui = {
+                 container: "#form-register",
+                 showVerdictsInsideProgressBar: true,
+                 viewports: {
+                     progress: ".progress_meter"
+                 }
+             };
+             $('#password').pwstrength(options);
+         });
+      </script>
+   </body>
+</html>
+

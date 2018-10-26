@@ -1,0 +1,338 @@
+
+<% include artist-header %>
+
+<section class="container">
+
+<div class="row">
+
+                <% include artist-aside %>
+    <!-- arts -->
+ <div class="col-xs-12 col-sm-12   col-md-8 pull-md-4 col-lg-8  ">
+                <% include ../shortcodes/alerts %>
+
+                <div class="container-filters-buyers ">
+                                <div class="row">
+                                        <div id="filter-head-down" class="col-xs-12 text-center filter-head ">Pendientes para Envió </div>
+                                </div>
+                          
+                               </div>
+                          
+                          
+                          <!-- list and pagination arts -->
+                     
+                                          <div id="container-arts">
+
+                                          </div>
+
+<div class=" row mt-5 ">
+        <div class="col-sm-12 d-flex justify-content-center">
+    
+                <nav class="nav-pagination">
+                        <ul class="pagination" id="container-pag">
+                          
+                        </ul>
+                </nav>
+        </div>
+    </div>
+ </div>
+
+    <!-- end arts -->
+
+
+  
+  
+
+
+</div>
+
+</section>
+
+<!-- manager artist arts shipping free list -->
+
+<script>
+
+var limitInit=1;//important 1
+var containerArts=$("#container-arts");
+var containerPagination=$("#container-pag");
+var cantToShow=5;
+
+var startLink=1;
+var cantToShowLink=5;
+artistArtsShipping(limitInit);
+
+ function artistArtsShipping(limit){
+        
+ $.ajax({
+    url: "getArtistArtsShippingFreeList",
+    method: 'POST',
+    dataType:'JSON',
+    data:{limit:limit,cantToShow:cantToShow},
+    beforeSend: function(){
+ 
+    },
+   success: function(response){         
+var htmlArts='';
+    for(var i=0; i<response.data.length; i++){
+          
+        let item = response.data[i];
+
+
+     if(item.type_sale_art=='auction'){
+        if(item.type_art=='image'){
+htmlArts+=`<div class="container-art mt-4">
+                                          <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                                     
+                                                 
+                                          <div class="container-fix-art"> 
+                                          <img src="imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+                                         </div>
+                                          
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                        
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span>`+item.title_art+` - `+item.measurements+` </span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> `+item.number_likes+` <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                                                              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                                          <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ `+item.minimum_bid_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                                                
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                                                  <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong> $ `+item.offer_winner.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>   
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                                      
+                                                                          <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Fecha de propuesta"> `+item.date_offer_winner+`<i class="fas fa-stopwatch"></i></label> 
+                                                                  </div>
+                                                      </div>
+                          
+                                          
+                                                  </div>
+
+                                                  <div class="col-12 p-0">
+                                                                <a href="artist-arts-shipping-free/`+item.cod_art+`" class="btn btn-offert"> ENVIAR A COMPRADOR </a>
+                                                     </div>
+</div>`;
+
+        }else if(item.type_art=='video'){
+                htmlArts+=`<div class="container-art mt-4">
+                                          <button class="btn subasta-art-img" data-toggle="tooltip" data-placement="bottom" title="subasta"><img src="media/img/auction-hammer-icon.png" class="alt-edit"></img></button>
+                                     
+                                                 
+                                        <div class="container-fix-art"> 
+                                         
+                                  <video class="video-art" width="100%" height="340" controls>
+                                                  <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                                                    
+                                              </video>
+                                          </div>
+                                          
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                        
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span>`+item.title_art+` - `+item.measurements+` </span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> `+item.number_likes+` <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                                                              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                                          <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta inicial"> Oferta inicial:  <strong> $ `+item.minimum_bid_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                                                
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                                                  <label class=" text-center" data-toggle="tooltip" data-placement="bottom" title="Oferta ganadora"> Oferta ganadora:  <strong> $ `+item.offer_winner.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label>   
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                                      
+                                                                          <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Fecha de propuesta"> `+item.date_offer_winner+`<i class="fas fa-stopwatch"></i></label> 
+                                                                  </div>
+                                                      </div>
+                          
+                                          
+                                                  </div>
+
+                                                  <div class="col-12 p-0">
+                                                                <a href="artist-arts-shipping-free/`+item.cod_art+`" class="btn btn-offert"> ENVIAR A COMPRADOR </a>
+                                                     </div>
+</div>`;
+        }
+     }else if(item.type_sale_art=='direct'){
+        if(item.type_art=='image'){
+  htmlArts+=`<div class="container-art mt-4">
+                                          <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                                       
+                                                 
+                                          <div class="container-fix-art"> 
+                                         
+                                        <img src="/imagesArs/`+item.url_art+`" class="img-art" data-jslghtbx>
+                                  </div>
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                   
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span>`+item.title_art+` - `+item.measurements+`</span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> `+item.number_likes+` <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                                                              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                                          <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                                                
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                                         
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                                      
+                                                                          <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Fecha de pago"> `+item.date_paid_art+` <i class="fas fa-stopwatch"></i></label> 
+                                                                  </div>
+                                                      </div>
+                          
+                              
+                                          
+                                                  </div>
+
+                                                  <div class="col-12 p-0">
+                                                                <a href="/artist-arts-shipping-free/`+item.cod_art+`" class="btn btn-offert"> ENVIAR A COMPRADOR </a>
+                                                     </div>
+                                          </div>`;
+        }else if(item.type_art=='video'){
+           
+  htmlArts+=`<div class="container-art mt-4">
+                                          <button class="btn venta-art-img" data-toggle="tooltip" data-placement="bottom" title="Venta" ><img src="media/img/icon-venta.png" ></button>
+                                       
+                                                 
+                                                  
+                                          <div class="container-fix-art"> 
+                                         
+                                         <video class="video-art" width="100%" height="340" controls>
+                                                         <source src="videosArs/`+item.url_art+`" type="video/mp4" />
+                                                           
+                                                     </video>
+                                                 </div>
+
+                                                  <div class="container-info-arts container-fluid">
+                                                      <div class="row mt-1">
+                                                              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+                                                   
+                                                              </div>
+                                                              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                                        <span>`+item.title_art+` - `+item.measurements+`</span>
+                                                                    </div>
+                                                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                                  <label class="label-likes" data-toggle="tooltip" data-placement="bottom" title="Me gusta recibidos"> `+item.number_likes+` <i class="fas fa-heart"></i></label> 
+                                                          </div>
+                                                      </div>
+                                                      <div class="row ">
+                                                              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                                          <label class=" text-left" data-toggle="tooltip" data-placement="bottom" title="Precio"> Precio:  <strong> $ `+item.sale_price_art.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+" MXN"+`</strong> </label> 
+                                                                
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                                                                         
+                                                                  </div>
+                                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+                                                                      
+                                                                          <label class="label-likes"  data-toggle="tooltip" data-placement="bottom" title="Fecha de pago"> `+item.date_paid_art+` <i class="fas fa-stopwatch"></i></label> 
+                                                                  </div>
+                                                      </div>
+                          
+                              
+                                          
+                                                  </div>
+
+                                                  <div class="col-12 p-0">
+                                                                <a href="/artist-arts-shipping-free/`+item.cod_art+`" class="btn btn-offert"> ENVIAR A COMPRADOR </a>
+                                                     </div>
+                                          </div>`;
+        }
+     }
+
+    }
+
+containerArts.html(htmlArts);
+
+pagesHtml="";
+
+var numberLinks= Math.ceil((parseInt(response.count)/cantToShow));
+
+if(limit>1){
+        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+1+`)">&laquo;</a></li>`;
+        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit-1)+`)">&lsaquo;</a></li>`;
+}else{
+        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&laquo;</a></li>`;
+        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&lsaquo;</a></li>`;
+}
+
+
+for(var i=1; i<=numberLinks; i++){
+if(i>=(startLink-1) && i<=(startLink+(cantToShowLink-1)) ){
+        if(i==limit){
+         
+                pagesHtml+= `<li class="page-item "  ><a class="page-link active-antares-link" href="javascript:void(0)" >`+i+`</a></li>`;
+        }else{
+                pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)" onclick="changeLinkStart(`+i+`)">`+i+`</a></li>`;
+            
+        }
+}
+
+}
+
+if(limit<numberLinks){
+        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStart(`+(limit+1)+`)">&rsaquo;</a></li>`;
+        pagesHtml+= `<li class="page-item"  ><a class="page-link" href="javascript:void(0)"  onclick="changeLinkStartRestar(`+(numberLinks)+`)">&raquo;</a></li>`;
+}else{
+        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&rsaquo;</a></li>`;
+        pagesHtml+= `<li class="page-item " disabled ><a class="page-link" href="javascript:void(0)" >&raquo;</a></li>`;
+}
+containerPagination.html(pagesHtml);
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+var lightbox = new Lightbox();
+lightbox.load();
+
+},
+error: function(err) {
+console.log(JSON.stringify(err));
+ }
+});
+
+}
+
+function changeLinkStart(page){
+
+    if(page==startLink+(cantToShowLink-1)){
+      startLink=startLink+(cantToShowLink);
+    }else if(page==startLink-1){
+        startLink=startLink-(cantToShowLink);
+    }
+    artistArtsShipping(page);
+}
+
+function changeLinkStartRestar(page){
+startLink=page;
+artistArtsShipping(page);
+}
+
+</script>
+
+
+<% include artist-footer %>
